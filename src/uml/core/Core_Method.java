@@ -15,46 +15,46 @@ public class Core_Method extends Core_Typed
     public Core_Method()
     {
         super();
-        params = new ArrayList<Core_Attribute>();
-        returns = new ArrayList<Core_Attribute>();
-        visibility = new Core_Visibility();
+        this.params = new ArrayList<Core_Attribute>();
+        this.returns = new ArrayList<Core_Attribute>();
+        this.visibility = new Core_Visibility();
     }
 
     public Core_Method(String name, String type, String visibility)
     {
         super(name, type);
-        params = new ArrayList<Core_Attribute>();
-        returns = new ArrayList<Core_Attribute>();
-        visibility = new Core_Visibility(visibility);
+        this.params = new ArrayList<Core_Attribute>();
+        this.returns = new ArrayList<Core_Attribute>();
+        this.visibility = new Core_Visibility(visibility);
     }
 
     public Core_Attribute create_param()
     {
         Core_Attribute attr = new Core_Attribute();
-        params.add( attr );
+        this.params.add( attr );
         return( attr );
     }
 
     public void remove_param(Core_Attribute param)
     {
-        params.remove( param );
+        this.params.remove( param );
     }
 
     public Core_Attribute create_return()
     {
         Core_Attribute ret = new Core_Attribute();
-        returns.add( ret );
+        this.returns.add( ret );
         return( ret );
     }
 
     public void remove_return(Core_Attribute retutn)
     {
-        returns.remove(retutn);
+        this.returns.remove(retutn);
     }
 
     public Core_Attribute get_param(String name)
     {
-        for (Core_Attribute item : params)
+        for (Core_Attribute item : this.params)
         {
             if ( item.name == name )
                 return item;    
@@ -63,7 +63,7 @@ public class Core_Method extends Core_Typed
 
     public Core_Attribute get_return(String name)
     {
-        for (Core_Attribute item : returns)
+        for (Core_Attribute item : this.returns)
         {
             if ( item.name == name )
                 return item;    
