@@ -14,9 +14,9 @@ public class Core_Visibility extends java.lang.Object
         this.visibility = 0;
     }
 
-    public Core_Visibility(int visibility)
+    public Core_Visibility(int vis)
     {
-        this.visibility = visibility;
+        this.visibility = vis;
     }
 
     public int get_visibility()
