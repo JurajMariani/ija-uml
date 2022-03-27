@@ -28,7 +28,7 @@ public class Core_Method extends Core_Typed
         this.visibility = new Core_Visibility(visibility);
     }
 
-    public Core_Attribute create_param()
+    public Core_Attribute add_param()
     {
         Core_Attribute attr = new Core_Attribute();
         this.params.add( attr );
@@ -40,7 +40,7 @@ public class Core_Method extends Core_Typed
         this.params.remove( param );
     }
 
-    public Core_Attribute create_return()
+    public Core_Attribute add_return()
     {
         Core_Attribute ret = new Core_Attribute();
         this.returns.add( ret );
@@ -59,6 +59,8 @@ public class Core_Method extends Core_Typed
             if ( item.name == name )
                 return item;    
         }
+        
+        return null;
     }
 
     public Core_Attribute get_return(String name)
@@ -68,5 +70,7 @@ public class Core_Method extends Core_Typed
             if ( item.name == name )
                 return item;    
         }
+
+        return null;
     }
 }
