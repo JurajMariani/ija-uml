@@ -5,6 +5,12 @@ public class Element extends java.lang.Object
 {
     String name;
 
+
+    public Element()
+    {
+        this.name = "";
+    }
+
     public Element(String name)
     {
         this.name = name;
