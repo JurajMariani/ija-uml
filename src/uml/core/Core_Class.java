@@ -3,14 +3,15 @@ package uml.core;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import uml.core.Element;
 import uml.core.Core_Attribute;
 import uml.core.Core_Method;
 
 public class Core_Class extends Element
 {
-    List<Core_Attribute> attribute_list;
-    List<Core_Method> method_list;
+    protected List<Core_Attribute> attribute_list;
+    protected List<Core_Method> method_list;
 
     public Core_Class()
     {
@@ -70,5 +71,15 @@ public class Core_Class extends Element
         }
 
         return null;
+    }
+
+    public List<Core_Attribute> get_attributes()
+    {
+        return Collections.unmodifiableList(this.attribute_list);
+    }
+
+    public List<Core_Method> get_methods()
+    {
+        return Collections.unmodifiableList(this.method_list);
     }
 }
