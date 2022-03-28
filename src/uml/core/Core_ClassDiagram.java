@@ -3,14 +3,15 @@ package uml.core;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import uml.core.Element;
 import uml.core.Core_Class;
 import uml.core.Core_Link;
 
-class Core_ClassDiagram extends Element
+public class Core_ClassDiagram extends Element
 {
-    List<Core_Class> class_list;
-    List<Core_Link> link_list;
+    protected List<Core_Class> class_list;
+    protected List<Core_Link> link_list;
 
     public Core_ClassDiagram()
     {
@@ -49,9 +50,9 @@ class Core_ClassDiagram extends Element
         return null;
     }
 
-    public Core_Link add_link()
+    public Core_Link add_link(Element start_object, Element end_object)
     {
-        Core_Link link = new Core_Link();
+        Core_Link link = new Core_Link(start_object, end_object);
         this.link_list.add( link );
         return( link );
     }
@@ -70,5 +71,15 @@ class Core_ClassDiagram extends Element
         }
 
         return null;
+    }
+
+    public List<Core_Class> get_classes()
+    {
+        return Collections.unmodifiableList(this.class_list);
+    }
+
+    public List<Core_Link> get_links()
+    {
+        return Collections.unmodifiableList(this.link_list);
     }
 }
