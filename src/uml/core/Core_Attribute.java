@@ -1,26 +1,22 @@
 package uml.core;
 
 
-import uml.core.Core_Visibility;
 import uml.core.Core_Typed;
 
 public class Core_Attribute extends Core_Typed
 {
-    String value;
-    Core_Visibility visibility;
+    protected String value;
 
     public Core_Attribute()
     {
         super();
         value = "";
-        visibility = new Core_Visibility();
     }
 
-    public Core_Attribute(String name, Core_Typed type, String value, int visibility)
+    public Core_Attribute(String name, String type, String value, int visibility)
     {
-        super(name, type);
+        super(name, type, visibility);
         this.value = value;
-        this.visibility = new Core_Visibility(visibility);
     }
 
     public void change_value(String new_value)
@@ -31,5 +27,19 @@ public class Core_Attribute extends Core_Typed
     public String get_value()
     {
         return( this.value );
+    }
+
+    public String get_str_attribute()
+    {
+        StringBuilder str = new StringBuilder();
+        str.append(this.get_str_visibility());
+        str.append(this.get_name());
+        if ( this.value != "" )
+            str.append(" = " + this.value);
+
+        str.append(": ");
+        str.append(this.type);
+        
+        return ( str.toString() );
     }
 }
