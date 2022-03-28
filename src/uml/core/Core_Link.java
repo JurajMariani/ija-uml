@@ -6,10 +6,10 @@ import uml.core.Core_Typed;
 
 public class Core_Link extends Core_Typed
 {
-    Element start_object;
-    Element end_object;
-    String start_card;
-    String end_card;
+    protected Element start_object;
+    protected Element end_object;
+    protected String start_card;
+    protected String end_card;
 
     public Core_Link(Element s_o, Element e_o)
     {
