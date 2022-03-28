@@ -3,7 +3,7 @@ package uml.core;
 
 public class Element extends java.lang.Object
 {
-    String name;
+    protected String name;
 
 
     public Element()
