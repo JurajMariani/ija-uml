@@ -8,24 +8,21 @@ import java.util.ArrayList;
 
 public class Core_Method extends Core_Typed
 {
-    List<Core_Attribute> params;
-    List<Core_Attribute> returns;
-    Core_Visibility visibility;
+    protected List<Core_Attribute> params;
+    protected List<Core_Attribute> returns;
 
     public Core_Method()
     {
-        super();
+        super("", "void", 0);
         this.params = new ArrayList<Core_Attribute>();
         this.returns = new ArrayList<Core_Attribute>();
-        this.visibility = new Core_Visibility();
     }
 
-    public Core_Method(String name, String type, String visibility)
+    public Core_Method(String name, String type, int visibility)
     {
-        super(name, type);
+        super(name, type, visibility);
         this.params = new ArrayList<Core_Attribute>();
         this.returns = new ArrayList<Core_Attribute>();
-        this.visibility = new Core_Visibility(visibility);
     }
 
     public Core_Attribute add_param()
@@ -40,18 +37,6 @@ public class Core_Method extends Core_Typed
         this.params.remove( param );
     }
 
-    public Core_Attribute add_return()
-    {
-        Core_Attribute ret = new Core_Attribute();
-        this.returns.add( ret );
-        return( ret );
-    }
-
-    public void remove_return(Core_Attribute retutn)
-    {
-        this.returns.remove(retutn);
-    }
-
     public Core_Attribute get_param(String name)
     {
         for (Core_Attribute item : this.params)
@@ -63,14 +48,26 @@ public class Core_Method extends Core_Typed
         return null;
     }
 
-    public Core_Attribute get_return(String name)
+    public String get_str_method()
     {
-        for (Core_Attribute item : this.returns)
+        StringBuilder str = new StringBuilder();
+        str.append( this.get_str_visibility() );
+        str.append( this.name );
+        str.append("(");
+
+        int i;
+        for (i = 0; i < this.params.size() - 1; i++)
         {
-            if ( item.name == name )
-                return item;    
+            str.append(this.params.get(i).get_str_attribute());
+            str.append(", ");
         }
 
-        return null;
+        if ( this.params.size() > 0)
+            str.append(this.params.get(i).get_str_attribute());
+        str.append("): ");
+
+        str.append(this.type);
+
+        return( str.toString() );
     }
 }
