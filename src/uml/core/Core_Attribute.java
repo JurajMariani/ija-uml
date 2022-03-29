@@ -29,10 +29,11 @@ public class Core_Attribute extends Core_Typed
         return( this.value );
     }
 
-    public String get_str_attribute()
+    public String get_str_attribute(boolean... is_param)
     {
         StringBuilder str = new StringBuilder();
-        str.append(this.get_str_visibility());
+        if (is_param.length == 0)
+            str.append(this.get_str_visibility());
         str.append(this.get_name());
         if ( this.value != "" )
             str.append(" = " + this.value);
