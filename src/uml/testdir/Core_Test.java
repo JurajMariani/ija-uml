@@ -18,6 +18,8 @@ public class Core_Test extends java.lang.Object
 
         Core_Test test = new Core_Test();
 
+        System.out.println("TEST 1:\n");
+
         /**
          * Test 1:
          * 
@@ -29,12 +31,13 @@ public class Core_Test extends java.lang.Object
         Object o = new Object();
 
         Core_ClassDiagram cd = new Core_ClassDiagram();
-        assert cd.get_class("") != null;
-        assert cd.get_link("") != null;
-        assert cd .get_name() != "";
+        assert cd.get_class("") == null : "Class is not null";
+        assert cd.get_link("") == null : "Link is not null" ;
+        assert cd.get_name() == "" : "Name is not empty" ;
         cd = null;
 
-
+        System.out.println("\n\n");
+        System.out.println("TEST 2:\n");
 
         /**
          * Test 2:
@@ -46,23 +49,26 @@ public class Core_Test extends java.lang.Object
          *     - Create a blank class
          *     - Rename the class "Class 2"
          *     - Create a link between the classes
+         *     - Print the environment (should contain 2 empty classes)
          *  - Close the diagram
          * 
          */
 
         cd = new Core_ClassDiagram();
         cd.rename("Class Diagram 1");
-        assert cd.get_name() != "Class Diagram 1";
+        assert cd.get_name() == "Class Diagram 1" : "Name should be Class Diagram 1";
         Core_Class calss = cd.add_class();
-        assert calss != null;
+        assert calss != null : "Class should not be null";
+        int[] position = calss.get_position();
+        assert ((position[0] == 0) && (position[1] == 0)) : "Position should be [0,0]";
         calss.rename("Class 1");
-        assert calss.get_name() == "Class 1";
+        assert calss.get_name() == "Class 1" : "Class name should be Class 1";
         Core_Class calsss = cd.add_class();
-        assert calsss != null;
+        assert calsss != null : "Class should not be null";
         calsss.rename("Class 2");
-        assert calsss.get_name() == "Class 2";
+        assert calsss.get_name() == "Class 2" : "Class name should be Class 2";
         Core_Link link = cd.add_link(calss, calsss);
-        assert link != null;
+        assert link != null : "Link should not be null";
 
         test.print_environment(cd);
 
@@ -71,7 +77,9 @@ public class Core_Test extends java.lang.Object
         calsss = null;
         cd = null;
 
-        System.out.println("=========================\n=========================\n\n");
+
+        System.out.println("\n\n");
+        System.out.println("TEST 3:\n");
 
         /**
          * Test 3: 
