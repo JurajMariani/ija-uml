@@ -58,12 +58,12 @@ public class Core_Method extends Core_Typed
         int i;
         for (i = 0; i < this.params.size() - 1; i++)
         {
-            str.append(this.params.get(i).get_str_attribute());
+            str.append(this.params.get(i).get_str_attribute(true));
             str.append(", ");
         }
 
         if ( this.params.size() > 0)
-            str.append(this.params.get(i).get_str_attribute());
+            str.append(this.params.get(i).get_str_attribute(true));
         str.append("): ");
 
         str.append(this.type);
