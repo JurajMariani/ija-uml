@@ -8,13 +8,20 @@ lib=build
 src=src
 test_core=uml/testdir/Core_Test
 
-all:	rm_class test_core
+all: rm_class test_core add_numb
 	
 
 rm_class:
 	rm -rf build
 	mkdir build
+	
 
 test_core:
 	javac -cp $(src) -d $(lib) $(src)/$(test_core).java
 	java -ea -cp $(lib) $(test_core)
+
+add_numb:
+	rm -rf build
+	mkdir build
+	touch ./build/numb.txt
+
