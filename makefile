@@ -26,6 +26,11 @@ test_io:
 	javac -cp $(src) -d $(lib) $(src)/$(test_io).java
 	java -ea -cp $(lib) $(test_io)
 
+
+rm_tmp_xml:
+	rm ./aaa.xml
+	rm ./bbb.xml
+
 add_numb:
 	rm -rf build
 	mkdir build
