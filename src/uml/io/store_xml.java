@@ -49,7 +49,7 @@ public class store_xml extends java.lang.Object
             attribute.setValue(this.c_diagram.get_name());
             root_elem.setAttributeNode(attribute);
 
-            Element classes_item = document.createElement("classes");
+            Element classes_item = document.createElement("classlist");
             root_elem.appendChild(classes_item);
 
             List<Core_Class> classes = this.c_diagram.get_classes();
@@ -142,10 +142,39 @@ public class store_xml extends java.lang.Object
             for (Core_Link link : links)
             {
                 Element link_item = document.createElement("link");
-                link_item.appendChild(link_item);
+                links_item.appendChild(link_item);
                 
                 attribute = document.createAttribute("name");
-                attribute.setValue(link.);
+                attribute.setValue(link.get_name());
+                link_item.setAttributeNode(attribute);
+
+                attribute = document.createAttribute("type");
+                attribute.setValue(link.get_type());
+                link_item.setAttributeNode(attribute);
+
+                Element object_item = document.createElement("objects");
+                link_item.appendChild(object_item);
+
+                uml.core.Element[] obj = link.get_objects();
+                attribute = document.createAttribute("start");
+                attribute.setValue(obj[0].get_name());
+                object_item.setAttributeNode(attribute);
+
+                attribute = document.createAttribute("end");
+                attribute.setValue(obj[1].get_name());
+                object_item.setAttributeNode(attribute);
+
+                Element card = document.createElement("card");
+                link_item.appendChild(card);
+
+                String[] cardinality = link.get_card();
+                attribute = document.createAttribute("start");
+                attribute.setValue(cardinality[0]);
+                card.setAttributeNode(attribute);
+
+                attribute = document.createAttribute("end");
+                attribute.setValue(cardinality[1]);
+                card.setAttributeNode(attribute);
             }
    
             // write the content into xml file
