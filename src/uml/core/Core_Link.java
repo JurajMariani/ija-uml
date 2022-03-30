@@ -39,4 +39,16 @@ public class Core_Link extends Core_Typed
     {
         this.end_card = card;
     }
+
+    public Element[] get_objects()
+    {
+        Element[] ret = { this.start_object, this.end_object };
+        return ret;
+    }
+
+    public String[] get_card()
+    {
+        String[] ret = { this.start_card, this.end_card };
+        return ret;
+    }
 }
