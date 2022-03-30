@@ -5,24 +5,22 @@ import uml.core.Core_Typed;
 import uml.core.Core_Attribute;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Core_Method extends Core_Typed
 {
     protected List<Core_Attribute> params;
-    protected List<Core_Attribute> returns;
 
     public Core_Method()
     {
         super("", "void", 0);
         this.params = new ArrayList<Core_Attribute>();
-        this.returns = new ArrayList<Core_Attribute>();
     }
 
     public Core_Method(String name, String type, int visibility)
     {
         super(name, type, visibility);
         this.params = new ArrayList<Core_Attribute>();
-        this.returns = new ArrayList<Core_Attribute>();
     }
 
     public Core_Attribute add_param()
@@ -46,6 +44,11 @@ public class Core_Method extends Core_Typed
         }
         
         return null;
+    }
+
+    public List<Core_Attribute> get_params()
+    {
+        return Collections.unmodifiableList(this.params);
     }
 
     public String get_str_method()
