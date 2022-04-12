@@ -70,7 +70,7 @@ public class Core_ClassDiagram extends Element
     {
         for (Core_Class item : this.class_list)
         {
-            if( item.name == name )
+            if( item.name.equals(name) )
                 return item;
         }
 
@@ -108,7 +108,7 @@ public class Core_ClassDiagram extends Element
     {
         for (Core_Link item : this.link_list)
         {
-            if( item.name == name )
+            if( item.name.equals(name) )
                 return item;
         }
 

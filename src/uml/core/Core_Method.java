@@ -74,7 +74,7 @@ public class Core_Method extends Core_Typed
     {
         for (Core_Attribute item : this.params)
         {
-            if ( item.name == name )
+            if ( item.name.equals(name) )
                 return item;    
         }
         

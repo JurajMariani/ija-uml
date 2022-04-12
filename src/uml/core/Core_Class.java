@@ -70,7 +70,7 @@ public class Core_Class extends Element
     {
         for (Core_Attribute item : this.attribute_list)
         {
-            if ( item.name == name )
+            if ( item.name.equals(name) )
                 return item;    
         }
 
@@ -105,7 +105,7 @@ public class Core_Class extends Element
     {
         for (Core_Method item : this.method_list)
         {
-            if ( item.name == name )
+            if ( item.name.equals(name) )
                 return item;    
         }
 
