@@ -1,5 +1,4 @@
 package gui;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -53,11 +52,11 @@ public class ClassMethodController
 
     @FXML
     void ApplyButton(ActionEvent event) {
-        /*List<Core_Method> meths = newClass.get_methods();
+        List<Core_Method> meths = newClass.get_methods();
         for(Core_Method meth : meths)
         {
             System.out.print( meth.get_str_method()+"\n");
-        }*/
+        }
         actualWindow.close();
     }
 
@@ -103,27 +102,13 @@ public class ClassMethodController
         String paramVal = tfParamVal.getText();
         String methodName = tfMethodParamName.getText();
 
-
         Core_Method method = newClass.get_method(methodName);
-        System.out.print(method);
 
-        List<Core_Method> meths = newClass.get_methods();
-        for(Core_Method meth : meths)
-        {
-            if(meth.get_name().equals()) System.out.print("rovnake\n");
-            else
-            {
-                System.out.print("nerovnake\n");
-                System.out.print("list: "+ meth.get_name().length()+"\n");
-                System.out.print("find: "+ methodName.length() +"\n");
-            }
-        }
-
-        /*Core_Attribute param = method.add_param();
+        Core_Attribute param = method.add_param();
         param.rename(paramName);
         param.change_type(paramType);
         param.change_value(paramVal);
-        */
+        
         tfParamName.setText("");
         tfParamType.setText("");
         tfParamVal.setText("");
@@ -138,6 +123,7 @@ public class ClassMethodController
 
         Core_Method method = newClass.get_method(methodName);
         Core_Attribute param = method.get_param(paramName);
+
         method.remove_param(param);
 
         tfDeleteMethodParam.setText("");

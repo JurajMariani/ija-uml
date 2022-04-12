@@ -1,7 +1,5 @@
 package gui;
-
 import java.io.IOException;
-import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,6 +41,7 @@ public class ClassAttrController
 
     @FXML
     void ApplyButton(ActionEvent event) {
+        
         actualWindow.close();
     }
 
@@ -51,6 +50,7 @@ public class ClassAttrController
         String attrName = tf4.getText();
 
         Core_Attribute attr = newClass.get_attribute(attrName);
+
         newClass.remove_attribute(attr);
         tf4.setText("");
     }
