@@ -8,11 +8,22 @@ import uml.core.Element;
 import uml.core.Core_Class;
 import uml.core.Core_Link;
 
+/**
+ * CLASS: CORE CLASSDIAGRAM
+ * 
+ * <p> Class Core_ClassDiagram implements the Class Diagram
+ *
+ * @author Juraj Mariani
+ */
 public class Core_ClassDiagram extends Element
 {
     protected List<Core_Class> class_list;
     protected List<Core_Link> link_list;
 
+    /**
+     * Bare constructor
+     * <p> creates an empty class diagram with no name
+     */
     public Core_ClassDiagram()
     {
         super();
@@ -20,6 +31,10 @@ public class Core_ClassDiagram extends Element
         this.link_list = new ArrayList<Core_Link>();
     }
 
+    /**
+     * Creates a class diagram with a given name
+     * @param name Name of the new class diagram
+     */
     public Core_ClassDiagram(String name)
     {
         super( name );
@@ -27,6 +42,10 @@ public class Core_ClassDiagram extends Element
         this.link_list = new ArrayList<Core_Link>();
     }
 
+    /**
+     * Creates a new blank class, appends the new class to the class list
+     * @return Reference to the new class
+     */
     public Core_Class add_class()
     {
         Core_Class class_o = new Core_Class();
@@ -34,11 +53,19 @@ public class Core_ClassDiagram extends Element
         return( class_o );
     }
 
+    /**
+     * Removes the reference to object 'class_o' from the class list
+     * @param class_o reference to the to be removed class
+     */
     public void remove_class(Core_Class class_o)
     {
         this.class_list.remove( class_o );
     }
 
+    /**
+     * @param name Name of the class
+     * @return Reference to the found class / null
+     */
     public Core_Class get_class(String name)
     {
         for (Core_Class item : this.class_list)
@@ -50,6 +77,13 @@ public class Core_ClassDiagram extends Element
         return null;
     }
 
+    /**
+     * Creates a new bond between two objects
+     * 
+     * @param start_object 
+     * @param end_object
+     * @return Reference to the created bond
+     */
     public Core_Link add_link(Element start_object, Element end_object)
     {
         Core_Link link = new Core_Link(start_object, end_object);
@@ -57,11 +91,19 @@ public class Core_ClassDiagram extends Element
         return( link );
     }
 
+    /**
+     * Removes the reference to object 'link' from the link list
+     * @param link reference to the to be removed link
+     */
     public void remove_link(Core_Link link)
     {
         this.link_list.remove( link );
     }
 
+    /**
+     * @param name Name of the link
+     * @return Reference to the found link / null
+     */
     public Core_Link get_link(String name)
     {
         for (Core_Link item : this.link_list)
@@ -73,11 +115,17 @@ public class Core_ClassDiagram extends Element
         return null;
     }
 
+    /**
+     * @return Unmodifiable class list
+     */
     public List<Core_Class> get_classes()
     {
         return Collections.unmodifiableList(this.class_list);
     }
 
+    /**
+     * @return Unmodifiable link list
+     */
     public List<Core_Link> get_links()
     {
         return Collections.unmodifiableList(this.link_list);

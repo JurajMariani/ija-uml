@@ -5,6 +5,14 @@ import java.util.List;
 
 import uml.core.*;
 
+/**
+ * CLASS: CORE TEST
+ * 
+ * <p> Basic test suite for package uml.core
+ * <p> Relies heavily on manual supervision
+ *
+ * @author Juraj Mariani
+ */
 public class Core_Test extends java.lang.Object
 {
 
@@ -13,6 +21,9 @@ public class Core_Test extends java.lang.Object
 
     }
 
+    /**
+     * Test Suite
+     */
     public static void main(String[] argv)
     {
 
@@ -138,6 +149,78 @@ public class Core_Test extends java.lang.Object
         calss = null;
         calsss = null;
         cd = null;
+
+
+        System.out.println("\n\n");
+        System.out.println("TEST 4:\n");
+        /**
+         * Test 4:
+         * is a modification fo test 2 + added test for remove_*
+         * 
+         *  - Create a blank class diagram
+         *     - Change the name to "Class Diagram 1"
+         *     - Create a blank class
+         *     - Rename the class "Class 1"
+         *     -    - Add an attribute 'int x = 15'
+         *     -    - Remove the attribute
+         *     - Create a blank class
+         *     - Rename the class "Class 2"
+         *     - Create a link between the classes
+         *     - Rename the link to 'works'
+         *     - Remove the link 'works'
+         *     - Remove the class 'Class 1'
+         *     - Delete the Class Diagram 1
+         *  - Close the diagram
+         * 
+         */
+
+        cd = new Core_ClassDiagram();
+        cd.rename("Class Diagram 1");
+        calss = cd.add_class();
+        calss.rename("Class 1");
+        attr = calss.add_attribute();
+        attr.rename("x");
+        attr.change_type("int");
+        attr.change_value("13");
+        assert attr.get_name() == "x" : "The attribute name has been set to x but now it is not";
+        assert attr.get_type() == "int" : "The attribute's type has been set to 'int' but now it is not";
+        assert attr.get_value() == "13" : "The attribute's value has been set to '13' but now it is not";
+
+        test.print_environment(cd);
+        System.out.println("------------- 1 class 1 attribute ------------\n");
+
+        Core_Attribute attr_2 = calss.get_attribute("x");
+        assert attr == attr_2 : "The two attributes should point to the same object";
+        calss.remove_attribute(attr);
+        attr_2 = calss.get_attribute("x");
+        assert attr_2 == null : "The attribute should not be present in the class";
+        calsss = cd.add_class();
+        calsss.rename("Class 2");
+        link = cd.add_link(calss, calsss);
+        link.rename("works");
+
+        test.print_environment(cd);
+        System.out.println("------------- 2 classes 0 attribs ------------\n");
+        
+        assert link.get_name() == "works" : "The link name should have been set to 'works'";
+        Core_Link link2 = cd.get_link("works");
+        assert link == link2 : "The links should contain a reference to the same object";
+        cd.remove_link(link);
+        assert cd.get_link("works") == null : "The link 'works' should have been deleted";
+        
+        assert cd.get_class("Class 1") == calss : "The two references should point to the same object";
+        cd.remove_class(calss);
+        assert cd.get_class("Class 1") == null : "The class should have been removed";
+
+        test.print_environment(cd);
+        System.out.println("------------- 1 class ------------\n");
+
+        link = null;
+        calss = null;
+        calsss = null;
+        cd = null;
+
+
     }
 
     public void print_environment(Core_ClassDiagram cd)

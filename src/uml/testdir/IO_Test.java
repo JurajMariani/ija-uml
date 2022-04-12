@@ -4,12 +4,21 @@ package uml.testdir;
 import uml.core.*;
 import uml.io.store_xml;
 
+
+/**
+ * CLASS: IO TEST
+ * 
+ * <p> Class IO_Test tests the saving and loading capabilities of io classes
+ * <p> WARNING: TESTING IS MANUAL
+ *
+ * @author Juraj Mariani
+ */
 public class IO_Test extends java.lang.Object
 {
     public static void main(String[] args)
     {
         /**
-         * Test 3: 
+         * Test 1: 
          * 
          *  - Create a class diagram with 2 classes
          *     - Class 1

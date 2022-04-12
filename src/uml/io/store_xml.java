@@ -15,6 +15,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import java.io.File;
 
+
+/**
+ * CLASS: STORE XML
+ * 
+ * <p> Class store_xml stores the ClassDiagram environment into an XML format
+ * 
+ * <p> SEMIFUNCTIONAL
+ *
+ * @author Juraj Mariani
+ */
 public class store_xml extends java.lang.Object
 {
     private Core_ClassDiagram c_diagram;
@@ -29,7 +39,7 @@ public class store_xml extends java.lang.Object
         System.out.println("I was given: "+this.path + this.filename + ".\n");
 
         if (this.save() == 1)
-            System.out.println("pixxi\n");
+            System.out.println("ERROR\n");
     }
 
     public int save()
