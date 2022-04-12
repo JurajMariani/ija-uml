@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!-- Set the project name, basedir and default target to be executed-->
+<project name="ija-uml" default="app" basedir=".">
+ 
+  <!-- Target for deleting the existing directories-->
+  <target name="clean">
+    <delete dir="./build" />
+	  <mkdir dir="./build" />
+    <delete file="./dest/app.jar"/>
+    <delete includeemptydirs="true">
+      <fileset dir="./lib/" includes="**/*" excludes="get-libs.sh"/>
+    </delete>
+    <delete includeemptydirs="true">
+      <fileset dir="./doc/" includes="**/*" />
+    </delete>
+  </target>
+
+  <!-- Download the javaFX libs-->
+  <target name="get-lib">
+	<exec executable="bash">
+	  <arg value="./lib/get-libs.sh"/>
+	</exec>
+  </target>
+
+  <target name="delete-previous">
+    <delete includeemptydirs="true">
+      <fileset dir="./build" includes="**/*"/>
+    </delete>
+  </target>
+
+  <!-- Target for compiling libs-->
+  <target name="compile-libs" depends="delete-previous">
+	<javac srcdir="./src/uml/core/" destdir="./build">
+	</javac>
+	<javac srcdir="./src/uml/io/" destdir="./build">
+	</javac>
+  </target>
+ 
+  <!-- Target for compiling the java code-->
+  <target name="compile" depends="compile-libs">
+    <javac srcdir="./src/uml/testdir/" destdir="./build">
+	  <classpath path="./src" />
+    </javac>	
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="./dest/app.jar" basedir="./build">
+      <manifest>
+        <attribute name="Main-Class" value="uml.testdir.Core_Test"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="javadoc">
+  <!-- javadoc -classpath ./build -d ./doc -sourcepath ./src uml.core -->
+    <javadoc destdir="./doc" classpath="./build" private="true" sourcepath="./src" packagenames="**.*" />
+  </target>
+ 
+  <!-- Defualt target to run all targets-->
+  <target name="app" depends="jar, javadoc, get-lib">
+    <description>Main target</description>
+	  <java jar="./dest/app.jar" fork="true"/>
+  </target>
+  
+  <!-- Target to make the jar file and clean .class files -->
+  <target name="app-rm" depends="jar, clean">
+	  <java jar="./dest/app.jar" fork="true"/>
+  </target>
+ 
+</project>

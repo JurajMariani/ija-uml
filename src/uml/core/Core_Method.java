@@ -81,13 +81,6 @@ public class Core_Method extends Core_Typed
         return null;
     }
 
-<<<<<<< HEAD
-    public List<Core_Attribute> get_params()
-    {
-        return Collections.unmodifiableList(this.params);
-    }
-
-=======
     /**
      * Print Method in a special format:
      * 
@@ -95,7 +88,6 @@ public class Core_Method extends Core_Typed
      * 
      * @return Method in string format
      */
->>>>>>> javadoc-documentation
     public String get_str_method()
     {
         StringBuilder str = new StringBuilder();
