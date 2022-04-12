@@ -11,9 +11,9 @@
 ### Task 3
 
 * GIT repository initialisation	17.03.
-* Core Class Diagram Draft		21.03.
+* Core Class Diagram Draft		31.03.
 * Core Functionality			26.03.
-* Core GUI				02.04.
+* Core GUI				12.04.
 * Load/Store io functionality		09.04.
 * javadoc documentation		12.04.
 
