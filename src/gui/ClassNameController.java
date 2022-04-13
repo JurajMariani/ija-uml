@@ -1,5 +1,7 @@
 package gui;
+
 import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,14 +24,14 @@ public class ClassNameController
     }
 
     @FXML
-    void ApplyButton(ActionEvent event) {
-        actualWindow.close();
+    void CreateButton(ActionEvent event) {
+        this.actualWindow.close();
     }
 
     @FXML
     void ChangeClassName(ActionEvent event){
-        newClass.rename(tf.getText());
-        tf.setText("");
+        this.newClass.rename(this.tf.getText());
+        this.tf.setText("");
     }
 
     @FXML
@@ -42,10 +44,10 @@ public class ClassNameController
         Scene scene = new Scene(attrView);
 
         ClassAttrController controller = loader.getController();
-        controller.initData(actualWindow, newClass);
+        controller.initData(this.actualWindow, this.newClass);
 
-        actualWindow.setScene(scene);
-        actualWindow.show();
+        this.actualWindow.setScene(scene);
+        this.actualWindow.show();
     }
 
     @FXML
@@ -58,10 +60,10 @@ public class ClassNameController
         Scene scene = new Scene(methodView);
 
         ClassMethodController controller = loader.getController();
-        controller.initData(actualWindow, newClass);
+        controller.initData(this.actualWindow, this.newClass);
 
-        actualWindow.setScene(scene);
-        actualWindow.show();
+        this.actualWindow.setScene(scene);
+        this.actualWindow.show();
     }
 
 }

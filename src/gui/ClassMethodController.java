@@ -1,6 +1,6 @@
 package gui;
+
 import java.io.IOException;
-import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import uml.core.Core_Attribute;
@@ -35,13 +36,16 @@ public class ClassMethodController
 
     @FXML private ChoiceBox choiceBox;
 
+    @FXML private Label wrongMeth;
+    @FXML private Label wrongParam;
+
     ObservableList<String> visibilityChoice = FXCollections.observableArrayList("Public", "Protected", "Private");
 
     @FXML
     private void initialize()
     {
-        choiceBox.setValue("Public");
-        choiceBox.setItems(visibilityChoice);
+        this.choiceBox.setValue("Public");
+        this.choiceBox.setItems(this.visibilityChoice);
     }
 
     void initData(Stage window, Core_Class newClass)
@@ -51,22 +55,17 @@ public class ClassMethodController
     }
 
     @FXML
-    void ApplyButton(ActionEvent event) {
-        /*List<Core_Method> meths = newClass.get_methods();
-        for(Core_Method meth : meths)
-        {
-            System.out.print( meth.get_str_method()+"\n");
-        }*/
-        actualWindow.close();
+    void CreateButton(ActionEvent event) {
+        this.actualWindow.close();
     }
 
     @FXML
     void AddMethodButton(ActionEvent event) {
-        String methodName = tfMethodName.getText();
-        String methodType = tfMethodType.getText();
+        String methodName = this.tfMethodName.getText();
+        String methodType = this.tfMethodType.getText();
         int methodVisibility = -1;
 
-        switch(choiceBox.getValue().toString())
+        switch(this.choiceBox.getValue().toString())
         {
             case "Public": methodVisibility = 0; break;
             case "Protected": methodVisibility = 1; break;
@@ -74,60 +73,94 @@ public class ClassMethodController
             default: break;
         }
 
-        Core_Method method = newClass.add_method();
+        Core_Method method = this.newClass.add_method();
 
         method.rename(methodName);
         method.change_type(methodType);
         method.change_visibility(methodVisibility);
 
-        tfMethodName.setText("");
-        tfMethodType.setText("");
+        this.choiceBox.setValue("Public");
+        this.tfMethodName.setText("");
+        this.tfMethodType.setText("");
     }
 
     @FXML
     void DeleteMethodButton(ActionEvent event) {
-        String methodName = tfDeleteMethod.getText();
+        String methodName = this.tfDeleteMethod.getText();
 
-        Core_Method method = newClass.get_method(methodName);
+        Core_Method method = this.newClass.get_method(methodName);
 
-        newClass.remove_method(method);
-
-        tfDeleteMethod.setText("");
+        String msg;
+        if(method == null)
+        {
+            msg = "Cannot find given method";
+            this.wrongMeth.setText(msg);
+        }
+        else
+        {
+            msg = "";
+            this.newClass.remove_method(method);
+            this.wrongMeth.setText(msg);
+        }
+        
+        this.tfDeleteMethod.setText("");
     }
 
     @FXML
     void AddParamButton(ActionEvent event){
-        String paramName = tfParamName.getText();
-        String paramType = tfParamType.getText();
-        String paramVal = tfParamVal.getText();
-        String methodName = tfMethodParamName.getText();
+        String paramName = this.tfParamName.getText();
+        String paramType = this.tfParamType.getText();
+        String paramVal = this.tfParamVal.getText();
+        String methodName = this.tfMethodParamName.getText();
 
-        Core_Method method = newClass.get_method(methodName);
+        Core_Method method = this.newClass.get_method(methodName);
 
         Core_Attribute param = method.add_param();
         param.rename(paramName);
         param.change_type(paramType);
         param.change_value(paramVal);
         
-        tfParamName.setText("");
-        tfParamType.setText("");
-        tfParamVal.setText("");
-        tfMethodParamName.setText("");
+        this.tfParamName.setText("");
+        this.tfParamType.setText("");
+        this.tfParamVal.setText("");
+        this.tfMethodParamName.setText("");
     }
 
     @FXML
     void DeleteParamButton(ActionEvent event)
     {
-        String methodName = tfDeleteMethodParam.getText();
-        String paramName = tfDeleteParam.getText();
+        String methodName = this.tfDeleteMethodParam.getText();
+        String paramName = this.tfDeleteParam.getText();
 
-        Core_Method method = newClass.get_method(methodName);
-        Core_Attribute param = method.get_param(paramName);
+        Core_Method method = this.newClass.get_method(methodName);
 
-        method.remove_param(param);
+        String msg;
 
-        tfDeleteMethodParam.setText("");
-        tfDeleteParam.setText("");
+        if(method == null)
+        {
+            msg = "Cannot find given method";
+            this.wrongParam.setText(msg);
+        }
+        else 
+        {
+            Core_Attribute param = method.get_param(paramName);
+
+            if(param == null)
+            {
+                msg = "Cannot find given parameter";
+                this.wrongParam.setText(msg);
+            }
+            else
+            {
+                msg = "";
+                this.wrongParam.setText(msg);
+                method.remove_param(param);
+            }
+            
+        }
+
+        this.tfDeleteMethodParam.setText("");
+        this.tfDeleteParam.setText("");
     }
 
     @FXML
@@ -140,10 +173,10 @@ public class ClassMethodController
         Scene scene = new Scene(attrView);
 
         ClassAttrController controller = loader.getController();
-        controller.initData(actualWindow, newClass);
+        controller.initData(this.actualWindow, this.newClass);
 
-        actualWindow.setScene(scene);
-        actualWindow.show();
+        this.actualWindow.setScene(scene);
+        this.actualWindow.show();
     }
 
     @FXML
@@ -156,10 +189,10 @@ public class ClassMethodController
         Scene scene = new Scene(classView);
 
         ClassNameController controller = loader.getController();
-        controller.initData(actualWindow, newClass);
+        controller.initData(this.actualWindow, this.newClass);
 
-        actualWindow.setScene(scene);
-        actualWindow.show();
+        this.actualWindow.setScene(scene);
+        this.actualWindow.show();
     }
 }
 
