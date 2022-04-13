@@ -34,30 +34,61 @@
 	</javac>
 	<javac srcdir="./src/uml/io/" destdir="./build">
 	</javac>
+  <javac srcdir="./src/gui" modulepath="./libs/javafx-sdk-18/lib/*.jar" destdir="./build">
+  </javac>
   </target>
+
+
+
+
+
+<target name="aaaa">
+    <javac srcdir="./src" sourcepath="./src/App.java" classpath="./src" destdir="./build" >
+      <compilerarg line="--module-path lib/javafx-sdk-18/lib/ --add-modules javafx.base,javafx.controls,javafx.fxml -Xlint:unchecked"/>
+    </javac>
+  </target>
+
+
+  <target name="compilation" depends="get-lib">
+    <javac srcdir="./src" sourcepath="./src/App.java" classpath="./src" destdir="./build" >
+      <compilerarg line="--module-path lib/javafx-sdk-18/lib/ --add-modules javafx.base,javafx.controls,javafx.fxml"/>
+    </javac>
+  </target>
+
+
+
+
+
+
+  <!--
+  <exec executable="bash">
+	  <arg value="javac -\-module-path lib/javafx-sdk-18/lib/ -\-add-modules javafx.base,javafx.controls,javafx.fxml -d ./build -cp ./src ./src/App.java"/>
+	</exec>-->
+  
+  <!-- javac \-\-module-path lib \-\-add-modules javafx.* src./App.java -->
  
   <!-- Target for compiling the java code-->
   <target name="compile" depends="compile-libs">
-    <javac srcdir="./src/uml/testdir/" destdir="./build">
-	  <classpath path="./src" />
+    <javac srcpath="./src/App.java" destdir="./build">
+	  <classpath path="./src:./libs" />
     </javac>	
   </target>
 
-  <target name="jar" depends="compile">
+  <target name="jar" depends="aaaa">
     <jar destfile="./dest/app.jar" basedir="./build">
       <manifest>
-        <attribute name="Main-Class" value="uml.testdir.Core_Test"/>
+        <attribute name="Main-Class" value="App"/>
       </manifest>
     </jar>
   </target>
 
   <target name="javadoc">
   <!-- javadoc -classpath ./build -d ./doc -sourcepath ./src uml.core -->
-    <javadoc destdir="./doc" classpath="./build" private="true" sourcepath="./src" packagenames="**.*" />
+    <javadoc destdir="./doc" classpath="./build" private="true" sourcepath="./src" packagenames="uml.*" />
   </target>
  
   <!-- Defualt target to run all targets-->
-  <target name="app" depends="jar, javadoc, get-lib">
+  <target name="app" depends="get-lib, jar, javadoc">
     <description>Main target</description>
 	  <java jar="./dest/app.jar" fork="true"/>
   </target>

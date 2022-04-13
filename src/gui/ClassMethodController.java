@@ -52,11 +52,11 @@ public class ClassMethodController
 
     @FXML
     void ApplyButton(ActionEvent event) {
-        List<Core_Method> meths = newClass.get_methods();
+        /*List<Core_Method> meths = newClass.get_methods();
         for(Core_Method meth : meths)
         {
             System.out.print( meth.get_str_method()+"\n");
-        }
+        }*/
         actualWindow.close();
     }
 
