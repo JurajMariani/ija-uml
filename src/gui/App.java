@@ -1,3 +1,5 @@
+package gui;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -14,9 +16,8 @@ public class App extends Application
 {
     Stage window;
 
-    public static void main(String[] args)
+    public static void run(String[] args)
     {
-        System.out.println(args.toString());
         launch(args);
     }
 
@@ -24,26 +25,13 @@ public class App extends Application
     {
         FXMLLoader loader;
         try {
-            //System.out.println("scena nie je nullAAAAAAAAAAAA");
             Core_ClassDiagram classDiagram = new Core_ClassDiagram();
-            //System.out.println("scena nie je nullAAAAAAAAAAAA55");
-            loader = new FXMLLoader(getClass().getResource("gui/MainScene.fxml"));
+            loader = new FXMLLoader(getClass().getResource("MainScene.fxml"));
             Parent root = loader.load();
-
-            //System.out.println("scena nie je nullAAAAAAAAAAAA4444444444444");
-            //System.out.print(loader);
-
             window = primaryStage;
-            //System.out.println("scena nie je nullAAAAAAAAAAAAgggggg");
             window.setTitle("MyUML");
-            //System.out.println("scena nie je nullffffffffffffffffffffAAAAAAAAAAAA");
             
             Scene scene = new Scene(root);
-            //System.out.println("scena nie je nullAAAAAAAAAffffffffffhhhhhhhhhhhhhhhhhhhhhhtyAAA");
-
-            //if (scene == null)
-                //System.out.println("scena je null");
-            //System.out.println("scena nie je null");
 
             MainSceneController controller = loader.getController();
             controller.initData(window, classDiagram);

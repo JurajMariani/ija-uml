@@ -2,11 +2,11 @@
  <!-- Set the project name, basedir and default target to be executed-->
 <project name="ija-uml" default="app" basedir=".">
  
-  <!-- Target for deleting the existing directories-->
+  <!-- Target for deleting .class files, documentation and JAR archive -->
   <target name="clean">
     <delete dir="./build" />
 	  <mkdir dir="./build" />
-    <delete file="./dest/app.jar"/>
+    <delete file="./dest/ija-app.jar"/>
     <delete includeemptydirs="true">
       <fileset dir="./lib/" includes="**/*" excludes="get-libs.sh"/>
     </delete>
@@ -15,87 +15,89 @@
     </delete>
   </target>
 
-  <!-- Download the javaFX libs-->
+  <!-- Download the javaFX libs -->
   <target name="get-lib">
 	<exec executable="bash">
 	  <arg value="./lib/get-libs.sh"/>
 	</exec>
   </target>
 
-  <target name="delete-previous">
-    <delete includeemptydirs="true">
-      <fileset dir="./build" includes="**/*"/>
-    </delete>
+  <!-- Copy .fxml files from src/ to build/ -->
+  <target name="move-fxml">
+    <copy todir="./build/gui">
+      <fileset dir="./src/gui">
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
   </target>
-
-  <!-- Target for compiling libs-->
-  <target name="compile-libs" depends="delete-previous">
+  
+    <target name="compile-libs">
 	<javac srcdir="./src/uml/core/" destdir="./build">
 	</javac>
 	<javac srcdir="./src/uml/io/" destdir="./build">
 	</javac>
-  <javac srcdir="./src/gui" modulepath="./libs/javafx-sdk-18/lib/*.jar" destdir="./build">
-  </javac>
   </target>
 
+  <!-- Target for compiling the java code-->
+  <target name="compile" depends="compile-libs">
+    <javac srcdir="./src/uml/testdir/" destdir="./build">
+	  <classpath path="./build" />
+    </javac>	
+  </target>
 
-
-
-
-<target name="aaaa">
-    <javac srcdir="./src" sourcepath="./src/App.java" classpath="./src" destdir="./build" >
+<!-- Target for compilation of the project -->
+<target name="compile-gui">
+    <javac srcdir="./src" sourcepath="./src/EntryP.java" classpath="./src" destdir="./build" >
       <compilerarg line="--module-path lib/javafx-sdk-18/lib/ --add-modules javafx.base,javafx.controls,javafx.fxml -Xlint:unchecked"/>
     </javac>
   </target>
 
-
-  <target name="compilation" depends="get-lib">
-    <javac srcdir="./src" sourcepath="./src/App.java" classpath="./src" destdir="./build" >
-      <compilerarg line="--module-path lib/javafx-sdk-18/lib/ --add-modules javafx.base,javafx.controls,javafx.fxml"/>
-    </javac>
-  </target>
-
-
-
-
-
-
-  <!--
-  <exec executable="bash">
-	  <arg value="javac -\-module-path lib/javafx-sdk-18/lib/ -\-add-modules javafx.base,javafx.controls,javafx.fxml -d ./build -cp ./src ./src/App.java"/>
-	</exec>-->
-  
-  <!-- javac \-\-module-path lib \-\-add-modules javafx.* src./App.java -->
- 
-  <!-- Target for compiling the java code-->
-  <target name="compile" depends="compile-libs">
-    <javac srcpath="./src/App.java" destdir="./build">
-	  <classpath path="./src:./libs" />
-    </javac>	
-  </target>
-
-  <target name="jar" depends="aaaa">
-    <jar destfile="./dest/app.jar" basedir="./build">
-      <manifest>
-        <attribute name="Main-Class" value="App"/>
+  <!-- Create an executable JAR archive -->
+  <target name="jar" depends="compile">
+    <jar destfile="./dest/ija-app.jar" filesetmanifest="skip" basedir="./build">
+    <manifest>
+          <attribute name="Main-Class" value="uml.testdir.Core_Test"/>
+          <attribute name="Class-Path" value=""/>
       </manifest>
-    </jar>
-  </target>
+  </jar>
+</target>
 
+<target name="jar-gui" depends="compile-gui, move-fxml">
+    <jar destfile="./dest/ija-app.jar" filesetmanifest="skip" basedir="./build">
+      <zipgroupfileset dir="./lib/javafx-sdk-18/lib/" includes="*.*.jar" />
+      <manifest>
+          <attribute name="Main-Class" value="EntryP"/>
+          <attribute name="Class-Path" value="./EntryP"/>
+      </manifest>
+  </jar>
+</target>
+
+<!-- Generate documentation -->
   <target name="javadoc">
-  <!-- javadoc -classpath ./build -d ./doc -sourcepath ./src uml.core -->
     <javadoc destdir="./doc" classpath="./build" private="true" sourcepath="./src" packagenames="uml.*" />
   </target>
  
   <!-- Defualt target to run all targets-->
-  <target name="app" depends="get-lib, jar, javadoc">
+  <target name="app" depends="clean, get-lib, jar, javadoc">
     <description>Main target</description>
-	  <java jar="./dest/app.jar" fork="true"/>
+	  <chmod file="./dest/ija-app.jar" perm="+x"/>
+  </target>
+
+  <target name="run" depends="app">
+    <description>Execute JAR archive</description>
+    <java jar="./dest/ija-app.jar" classpath="./build" fork="true" />
   </target>
   
-  <!-- Target to make the jar file and clean .class files -->
-  <target name="app-rm" depends="jar, clean">
-	  <java jar="./dest/app.jar" fork="true"/>
+  <target name="only-run">
+    <description>Execute JAR archive</description>
+    <java jar="./dest/ija-app.jar" classpath="./build" fork="true" />
+  </target>
+  
+  
+  <target name="gui" depends="jar-gui, javadoc">
+      <chmod file="./dest/ija-app.jar" perm="+x"/>
   </target>
  
+ <!-- <compilerarg line="-\-module-path lib/javafx-sdk-18/lib/ -\-add-modules javafx.base,javafx.controls,javafx.fxml"/> -->
+
 </project>
