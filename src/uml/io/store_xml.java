@@ -36,7 +36,7 @@ public class store_xml extends java.lang.Object
         this.c_diagram = cd;
         this.path = path;
         this.filename = filename;
-        System.out.println("I was given: "+this.path + this.filename + ".\n");
+        System.out.println("I have been given: "+this.path + this.filename + ".\n");
 
         if (this.save() == 1)
             System.out.println("ERROR\n");
@@ -204,6 +204,7 @@ public class store_xml extends java.lang.Object
          catch (Exception e)
          {
             e.printStackTrace();
+            System.out.println("An error occured during the saving process.");
             return 1;
          }
          return 0;
