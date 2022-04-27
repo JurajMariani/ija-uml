@@ -42,15 +42,39 @@ public class Core_ClassDiagram extends Element
         this.link_list = new ArrayList<Core_Link>();
     }
 
+
+    /**
+     * 
+     * @param name
+     * @return
+     */
+    private boolean class_name_already_exists(String name)
+    {
+        for (Core_Class class_instance : this.class_list)
+        {
+            if(class_instance.get_name().equals(name))
+                return true;    
+        }
+
+        return false;
+    }
+
     /**
      * Creates a new blank class, appends the new class to the class list
      * @return Reference to the new class
      */
-    public Core_Class add_class()
+    public Core_Class add_class(String name)
     {
-        Core_Class class_o = new Core_Class();
-        this.class_list.add( class_o );
-        return( class_o );
+        if(! this.class_name_already_exists(name) )
+        {
+            Core_Class class_o = new Core_Class(name);
+            this.class_list.add( class_o );
+            return( class_o );
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
