@@ -15,11 +15,17 @@
     </delete>
   </target>
 
+  <target name="javafx-present">
+    <condition property="dir.exists">
+      <available file="./lib/javafx-sdk-18" type="dir"/>
+    </condition>
+  </target>
+
   <!-- Download the javaFX libs -->
-  <target name="get-lib">
-	<exec executable="bash">
-	  <arg value="./lib/get-libs.sh"/>
-	</exec>
+  <target name="get-lib" depends="javafx-present" unless="dir.exists">
+    <exec executable="bash">
+      <arg value="./lib/get-libs.sh"/>
+    </exec>
   </target>
 
   <!-- Copy .fxml files from src/ to build/ -->
@@ -78,7 +84,7 @@
   </target>
  
   <!-- Defualt target to run all targets-->
-  <target name="app" depends="clean, get-lib, jar, javadoc">
+  <target name="app" depends="get-lib, jar, javadoc">
     <description>Main target</description>
 	  <chmod file="./dest/ija-app.jar" perm="+x"/>
   </target>

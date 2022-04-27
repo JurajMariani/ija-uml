@@ -68,15 +68,13 @@ public class Core_Test extends java.lang.Object
         cd = new Core_ClassDiagram();
         cd.rename("Class Diagram 1");
         assert cd.get_name() == "Class Diagram 1" : "Name should be Class Diagram 1";
-        Core_Class calss = cd.add_class();
+        Core_Class calss = cd.add_class("Class 1");
         assert calss != null : "Class should not be null";
         int[] position = calss.get_position();
         assert ((position[0] == 0) && (position[1] == 0)) : "Position should be [0,0]";
-        calss.rename("Class 1");
         assert calss.get_name() == "Class 1" : "Class name should be Class 1";
-        Core_Class calsss = cd.add_class();
+        Core_Class calsss = cd.add_class("Class 2");
         assert calsss != null : "Class should not be null";
-        calsss.rename("Class 2");
         assert calsss.get_name() == "Class 2" : "Class name should be Class 2";
         Core_Link link = cd.add_link(calss, calsss);
         assert link != null : "Link should not be null";
@@ -107,8 +105,7 @@ public class Core_Test extends java.lang.Object
          */
 
         cd = new Core_ClassDiagram("CD 1");
-        calss = cd.add_class();
-        calss.rename("Class 1");
+        calss = cd.add_class("Class 1");
          
         Core_Attribute attr = calss.add_attribute();
         attr.rename("x");
@@ -132,8 +129,7 @@ public class Core_Test extends java.lang.Object
         attr.rename("arr");
         attr.change_type("int[]");
 
-        calss = cd.add_class();
-        calss.rename("Class 2");
+        calss = cd.add_class("Class 2");
         attr = calss.add_attribute();
         attr.change_type("array");
         attr.rename("ukk");
@@ -176,8 +172,7 @@ public class Core_Test extends java.lang.Object
 
         cd = new Core_ClassDiagram();
         cd.rename("Class Diagram 1");
-        calss = cd.add_class();
-        calss.rename("Class 1");
+        calss = cd.add_class("Class 1");
         attr = calss.add_attribute();
         attr.rename("x");
         attr.change_type("int");
@@ -194,8 +189,7 @@ public class Core_Test extends java.lang.Object
         calss.remove_attribute(attr);
         attr_2 = calss.get_attribute("x");
         assert attr_2 == null : "The attribute should not be present in the class";
-        calsss = cd.add_class();
-        calsss.rename("Class 2");
+        calsss = cd.add_class("Class 2");
         link = cd.add_link(calss, calsss);
         link.rename("works");
 

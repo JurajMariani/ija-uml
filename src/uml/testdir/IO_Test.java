@@ -33,8 +33,7 @@ public class IO_Test extends java.lang.Object
 
         
         Core_ClassDiagram cd = new Core_ClassDiagram("CD 1");
-        Core_Class calss = cd.add_class();
-        calss.rename("Class 1");
+        Core_Class calss = cd.add_class("Class 1");
          
         Core_Attribute attr = calss.add_attribute();
         attr.rename("x");
@@ -58,8 +57,7 @@ public class IO_Test extends java.lang.Object
         attr.rename("arr");
         attr.change_type("int[]");
 
-        calss = cd.add_class();
-        calss.rename("Class 2");
+        calss = cd.add_class("Class 2");
         attr = calss.add_attribute();
         attr.change_type("array");
         attr.rename("ukk");
@@ -75,8 +73,7 @@ public class IO_Test extends java.lang.Object
         cd = null;
 
         cd = new Core_ClassDiagram("CD 1");
-        calss = cd.add_class();
-        calss.rename("Class 1");
+        calss = cd.add_class("Class 1");
          
         attr = calss.add_attribute();
         attr.rename("x");
@@ -100,8 +97,7 @@ public class IO_Test extends java.lang.Object
         attr.rename("arr");
         attr.change_type("int[]");
 
-        calss = cd.add_class();
-        calss.rename("Class 2");
+        calss = cd.add_class("Class 2");
         attr = calss.add_attribute();
         attr.change_type("array");
         attr.rename("ukk");
