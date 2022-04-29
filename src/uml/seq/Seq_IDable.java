@@ -13,4 +13,9 @@ public class Seq_IDable extends Element
         super(name);
         instance++;
     }
+
+    public int get_instance()
+    {
+        return instance;
+    }
 }

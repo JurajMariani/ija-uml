@@ -32,7 +32,8 @@ public class Seq_SequenceDiagram extends Seq_IDable{
         Core_Class system = new Core_Class("System");
         Core_Method meth = system.add_method();
         meth.rename("init");
-        this.classlist.add(system);
+        Seq_Class ref = new Seq_Class(system);
+        this.classlist.add(ref);
     }
 
     public boolean is_in_classlist()
@@ -43,15 +44,14 @@ public class Seq_SequenceDiagram extends Seq_IDable{
     public Seq_Class add_actor(Core_Class avail)
     {
         Seq_Class sequence_actor = new Seq_Class(avail);
-        if (sequence_actor == null)
-        {
-            //Actor already exists - notify user or not??
-            return null;
-        }
-        else
-        {
-            return sequence_actor;
-        }
+        this.classlist.add(sequence_actor);
+            
+        return sequence_actor;
+    }
+
+    public Core_Class get_actor_ref(String name)
+    {
+        return this.cd.get_class(name);
     }
 
     public void remove_actor(Seq_Class actor)
@@ -59,11 +59,16 @@ public class Seq_SequenceDiagram extends Seq_IDable{
         this.classlist.remove(actor);
     }
 
+    public List<Core_Class> get_available()
+    {
+        return Collections.unmodifiableList(this.available_classes);
+    }
+
     public Seq_Class get_actor_by_name(String name)
     {
         for (Seq_Class actor : this.classlist)
         {
-            if( actor.name.equals(name) )
+            if( actor.get_name().equals(name) )
                 return actor;
         }
 
@@ -113,5 +118,11 @@ public class Seq_SequenceDiagram extends Seq_IDable{
         Seq_Message mess = new Seq_Message(src, dst, ack);
         mess.rename(name);
         this.update_actor_activity(mess);
+        return mess;
+    }
+
+    public List<Seq_Class> get_actors()
+    {
+        return Collections.unmodifiableList(this.classlist);
     }
 }

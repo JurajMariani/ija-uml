@@ -18,7 +18,7 @@ public class Seq_Message extends Seq_IDable
         super("");
         this.call_actor = s;
         this.receive_actor = e;
-        this.ack_message = a;
+        this.ack_message = ack;
     }
 
     public Seq_Class get_caller()

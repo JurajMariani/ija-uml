@@ -45,6 +45,13 @@
     </javac>	
   </target>
 
+
+<target name="compile-seq">
+  <javac srcdir="./src" sourcepath="./src/gui/seq/SeqD.java" classpath="./src" destdir="./build" >
+    <compilerarg line="--module-path lib/javafx-sdk-18/lib/ --add-modules javafx.base,javafx.controls,javafx.fxml -Xlint:unchecked"/>
+  </javac>
+</target>
+
 <!-- Target for compilation of the project -->
 <target name="compile-gui">
     <javac srcdir="./src" sourcepath="./src/EntryP.java" classpath="./src" destdir="./build" >
@@ -63,6 +70,16 @@
 </target>
 
 <target name="jar-gui" depends="compile-gui, move-fxml">
+    <jar destfile="./dest/ija-app.jar" filesetmanifest="skip" basedir="./build">
+      <zipgroupfileset dir="./lib/javafx-sdk-18/lib/" includes="*.*.jar" />
+      <manifest>
+          <attribute name="Main-Class" value="EntryP"/>
+          <attribute name="Class-Path" value="./EntryP"/>
+      </manifest>
+  </jar>
+</target>
+
+<target name="jar-seq">
     <jar destfile="./dest/ija-app.jar" filesetmanifest="skip" basedir="./build">
       <zipgroupfileset dir="./lib/javafx-sdk-18/lib/" includes="*.*.jar" />
       <manifest>
