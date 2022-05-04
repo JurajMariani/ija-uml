@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ClassMethodController">
+   <children>
+      <Button layoutX="16.0" layoutY="158.0" mnemonicParsing="false" onAction="#AddMethodButton" text="Add" />
+      <Button layoutX="17.0" layoutY="478.0" mnemonicParsing="false" onAction="#DeleteMethodButton" text="Delete" />
+      <Button layoutX="273.0" layoutY="547.0" mnemonicParsing="false" onAction="#CreateButton" text="Create" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#MenuClass" text="Class" />
+      <Button layoutX="66.0" layoutY="14.0" mnemonicParsing="false" onAction="#MenuAttr" text="Attributes" />
+      <Button disable="true" layoutX="148.0" layoutY="14.0" mnemonicParsing="false" text="Methods" />
+      <Label layoutX="14.0" layoutY="59.0" text="Set method settings: " />
+      <TextField fx:id="tfMethodName" layoutX="14.0" layoutY="86.0" prefHeight="24.0" prefWidth="429.0" promptText="Name" />
+      <TextField fx:id="tfMethodType" layoutX="14.0" layoutY="125.0" prefHeight="24.0" prefWidth="429.0" promptText="Type" />
+      <ChoiceBox fx:id="choiceBox" layoutX="293.0" layoutY="158.0" prefWidth="150.0" />
+      <Label layoutX="16.0" layoutY="208.0" text="Set parameters settings: " />
+      <TextField fx:id="tfParamName" layoutX="14.0" layoutY="269.0" prefHeight="24.0" prefWidth="429.0" promptText="Parameter name" />
+      <TextField fx:id="tfParamType" layoutX="14.0" layoutY="308.0" prefHeight="24.0" prefWidth="429.0" promptText="Type" />
+      <TextField fx:id="tfParamVal" layoutX="14.0" layoutY="348.0" prefHeight="24.0" prefWidth="429.0" promptText="Value" />
+      <Button layoutX="16.0" layoutY="383.0" mnemonicParsing="false" onAction="#AddParamButton" text="Add" />
+      <Label layoutX="17.0" layoutY="425.0" text="Delete method" />
+      <TextField fx:id="tfDeleteMethod" layoutX="15.0" layoutY="444.0" prefHeight="24.0" prefWidth="197.0" promptText="Name" />
+      <TextField fx:id="tfMethodParamName" layoutX="14.0" layoutY="233.0" prefHeight="24.0" prefWidth="429.0" promptText="Method name" />
+      <Button layoutX="246.0" layoutY="478.0" mnemonicParsing="false" onAction="#DeleteParamButton" text="Delete" />
+      <Label layoutX="247.0" layoutY="387.0" text="Delete paremeter" />
+      <TextField fx:id="tfDeleteParam" layoutX="246.0" layoutY="444.0" prefHeight="24.0" prefWidth="197.0" promptText="Parameter name" />
+      <TextField fx:id="tfDeleteMethodParam" layoutX="246.0" layoutY="413.0" prefHeight="24.0" prefWidth="197.0" promptText="Method name" />
+      <Label fx:id="wrongMeth" layoutX="20.0" layoutY="510.0" textFill="RED">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="wrongParam" layoutX="246.0" layoutY="510.0" textFill="RED">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

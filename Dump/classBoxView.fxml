@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="classBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="140.0" prefWidth="140.0" scaleShape="false" style="-fx-border-color: black; -fx-border-radius: 5px; -fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="className" alignment="TOP_CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minWidth="140.0" VBox.vgrow="ALWAYS">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <Separator style="-fx-background-color: black;" VBox.vgrow="ALWAYS" />
+      <Label fx:id="classAttr" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="138.0" prefWidth="138.0" textOverrun="CENTER_WORD_ELLIPSIS" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets bottom="5.0" left="2.0" top="5.0" />
+         </VBox.margin>
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Separator style="-fx-background-color: black;" VBox.vgrow="ALWAYS" />
+      <Label fx:id="classMeth" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="138.0" prefWidth="138.0" VBox.vgrow="ALWAYS">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+   </children>
+</VBox>
