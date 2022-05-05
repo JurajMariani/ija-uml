@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="815.0" prefWidth="1151.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.seq.MSController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.seq.MSController">
   <tabs>
     <Tab text="Untitled Tab 1">
       <content>
@@ -20,14 +21,22 @@
     </Tab>
     <Tab text="Untitled Tab 2">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="734.0" prefWidth="1151.0">
+        <AnchorPane fx:id="ap" minHeight="0.0" minWidth="0.0" prefHeight="734.0" prefWidth="1151.0">
                <children>
-                  <Button fx:id="addMess" layoutX="34.0" layoutY="746.0" mnemonicParsing="false" onAction="#new_method_popup" text="Add Message" />
-                  <ScrollPane layoutX="3.0" prefHeight="737.0" prefWidth="1145.0">
+                  <Button fx:id="changeMessage" layoutX="487.0" layoutY="795.0" mnemonicParsing="false" onAction="#changeMess" prefHeight="37.0" prefWidth="189.0" text="Change Message" />
+                  <Label fx:id="statusLabel" layoutX="960.0" layoutY="790.0" prefHeight="47.0" prefWidth="590.0">
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </Label>
+                  <Button fx:id="addMess" layoutX="32.0" layoutY="795.0" mnemonicParsing="false" onAction="#new_method_popup" prefHeight="37.0" prefWidth="189.0" text="Add Message" />
+                  <Button fx:id="removeMess" layoutX="258.0" layoutY="795.0" mnemonicParsing="false" onAction="#remove_message" prefHeight="37.0" prefWidth="189.0" text="Remove Message" />
+                  <Button fx:id="removeClass" layoutX="720.0" layoutY="795.0" mnemonicParsing="false" onAction="#remove_class" prefHeight="37.0" prefWidth="189.0" text="Remove Class" />
+                  <ScrollPane layoutX="3.0" maxHeight="800.0" maxWidth="1600.0">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="735.0" prefWidth="1140.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0">
                            <children>
-                              <GridPane fx:id="gridM" alignment="CENTER" gridLinesVisible="true" prefHeight="720.0" prefWidth="1141.0">
+                              <GridPane fx:id="gridM" alignment="CENTER" gridLinesVisible="true">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -38,10 +47,10 @@
                                   <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="377.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <ComboBox id="cbox" fx:id="cbox" prefHeight="24.0" prefWidth="187.0" promptText="Select Actor" GridPane.columnIndex="1" />
+                                    <ComboBox id="cbox" fx:id="cbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="128.0" promptText="Select Actor" GridPane.columnIndex="1" />
                                  </children>
                                  <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </padding>
                               </GridPane>
                            </children>

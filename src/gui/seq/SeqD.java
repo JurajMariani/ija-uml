@@ -68,38 +68,27 @@ public class SeqD extends Application
     {
         Core_ClassDiagram cd = this.set_cd();
         this.sd = new Seq_SequenceDiagram(cd.get_name() + " - Sequence Diagram 1", cd);
-        System.out.println("Si kokot?");
 
         FXMLLoader loader;
         
         try {
             loader = new FXMLLoader(getClass().getResource("MS.fxml"));
-            System.out.println("loader");
+
             System.out.println(loader);
             Parent root = loader.load();
-            System.out.println("null");
             this.window = primaryStage;
-            System.out.println("null");
             this.window.setTitle(sd.get_name());
-            System.out.println("null");
             
-            System.out.println("null");
             Scene scene = new Scene(root);
-            System.out.println("null");
 
-            System.out.println("MS");
             MSController controller = loader.getController();
-            System.out.println("CTRL");
             controller.init(window, this.sd);
 
-            System.out.println("WIN");
             window.setScene(scene);
-            System.out.println("SCENE");
             window.show();
-            System.out.println("show");
         }
-        catch(IOException e){
-            System.out.println(e);
+        catch(Exception e){
+            //e.printStackTrace();
             System.out.println("AAAAAAAAAAAAAAA");
         }
 

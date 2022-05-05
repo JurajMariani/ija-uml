@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.seq.MessageUpdateController">
+   <children>
+      <ComboBox fx:id="messList" layoutX="195.0" layoutY="62.0" prefHeight="39.0" prefWidth="178.0" />
+      <ComboBox fx:id="nMessList" layoutX="194.0" layoutY="139.0" prefHeight="39.0" prefWidth="178.0" />
+      <TextField fx:id="params" layoutX="191.0" layoutY="226.0" prefHeight="24.0" prefWidth="185.0" />
+      <Button fx:id="apply" layoutX="263.0" layoutY="313.0" mnemonicParsing="false" onAction="#updateSelected" prefHeight="39.0" prefWidth="127.0" text="Apply" />
+      <Label layoutX="83.0" layoutY="40.0" text="Choose message you want to change" />
+      <Label layoutX="83.0" layoutY="117.0" text="Choose new message *" />
+      <Label layoutX="83.0" layoutY="205.0" text="Specify new parameters *" />
+      <Label layoutX="477.0" layoutY="344.0" text="* = optional" />
+      <CheckBox fx:id="ack" layoutX="430.0" layoutY="73.0" mnemonicParsing="false" text="Acknowledgement*" />
+      <CheckBox fx:id="chDir" layoutX="433.0" layoutY="150.0" mnemonicParsing="false" onAction="#reload_cbox" text="Change Direction*" />
+   </children>
+</Pane>

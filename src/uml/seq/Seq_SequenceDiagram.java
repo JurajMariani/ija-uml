@@ -5,6 +5,7 @@ import uml.core.Element;
 import uml.core.Core_Class;
 import uml.core.Core_Method;
 import uml.core.Core_ClassDiagram;
+import uml.core.Core_Link;
 import uml.seq.Seq_Message;
 import uml.seq.Seq_Class;
 import uml.seq.Seq_IDable;
@@ -12,6 +13,7 @@ import uml.seq.Seq_IDable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+
 
 public class Seq_SequenceDiagram extends Seq_IDable{
 
@@ -30,20 +32,25 @@ public class Seq_SequenceDiagram extends Seq_IDable{
         this.classlist = new ArrayList<Seq_Class>();
         this.messagelist = new ArrayList<Seq_Message>();
         Core_Class system = new Core_Class("System");
-        Core_Method meth = system.add_method();
-        meth.rename("init");
-        Seq_Class ref = new Seq_Class(system);
+        Seq_Class ref = new Seq_Class(system, 0);
+        ref.construct();
         this.classlist.add(ref);
     }
 
     public boolean is_in_classlist()
     {
         return true;
-    };
+    }
 
-    public Seq_Class add_actor(Core_Class avail)
+    public Core_ClassDiagram get_reference()
     {
-        Seq_Class sequence_actor = new Seq_Class(avail);
+        return this.cd;
+    }
+
+    public Seq_Class add_actor(Core_Class avail, int inactive)
+    {
+        //this.update_actor_activity(this.dummy);
+        Seq_Class sequence_actor = new Seq_Class(avail, inactive);
         this.classlist.add(sequence_actor);
             
         return sequence_actor;
@@ -99,13 +106,37 @@ public class Seq_SequenceDiagram extends Seq_IDable{
     }
 
 
-    public void remove_message(Seq_Message mess)
+    public void attribute_update()
     {
-        this.classlist.remove(mess);
+        for (Seq_Class c : this.classlist)
+        {
+            c.update();    
+        }
+
+        for (Seq_Message m : this.messagelist)
+        {
+            m.update();       
+        }
+    }
+
+    public void bond_update(Core_Link l)
+    {
+
     }
 
 
-    public void update_actor_activity(Seq_Message last_message)
+    public List<Seq_Message> get_messages()
+    {
+        return Collections.unmodifiableList(this.messagelist);
+    }
+
+
+    public void remove_message(Seq_Message mess)
+    {
+        this.messagelist.remove(mess);
+    }
+
+    private void update_actor_activity(Seq_Message last_message)
     {
         for (Seq_Class s_class : this.classlist)
         {
@@ -113,16 +144,43 @@ public class Seq_SequenceDiagram extends Seq_IDable{
         }
     }
 
-    public Seq_Message add_message(Seq_Class src, Seq_Class dst, String name, boolean ack)
+    public Seq_Message add_message(Seq_Class src, Seq_Class dst, String name, Core_Method m, boolean ack, boolean constructor)
     {
-        Seq_Message mess = new Seq_Message(src, dst, ack);
-        mess.rename(name);
-        this.update_actor_activity(mess);
+        Seq_Message mess = null;
+
+        if(dst.is_constructed() || constructor)
+        {
+            if (constructor)
+                dst.construct();
+            mess = new Seq_Message(src, dst, ack, constructor);
+            mess.rename(name);
+            mess.set_ref(m);
+            this.update_actor_activity(mess);
+            this.messagelist.add(mess);
+        }
+
         return mess;
     }
 
     public List<Seq_Class> get_actors()
     {
         return Collections.unmodifiableList(this.classlist);
+    }
+
+    public List<Seq_Class> get_actors_with_bond_to(int id)
+    {
+        Seq_Class cl = this.get_actor_by_id(id);
+        List<Seq_Class> retList = new ArrayList<Seq_Class>();
+
+        List<Core_Link> bonds = this.cd.get_links();
+
+        for (Core_Link bond : bonds)
+        {
+            if(bond.get_objects().get(0).get_name().equals(cl.get_name()))
+                if(this.get_actor_by_name(bond.get_objects().get(1).get_name()) != null)
+                    retList.add(this.get_actor_by_name(bond.get_objects().get(1).get_name()));
+        }
+
+        return retList;
     }
 }
