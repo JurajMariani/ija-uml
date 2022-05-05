@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import uml.core.Element;
+import uml.misc.myClassBox;
 import uml.core.Core_Attribute;
 import uml.core.Core_Method;
 
@@ -19,20 +20,22 @@ public class Core_Class extends Element
 {
     protected List<Core_Attribute> attribute_list;
     protected List<Core_Method> method_list;
+    protected myClassBox container;
 
     /**
      * Bare constructor
-     * <p> creates an empty class
+     * <p> creates an empty class and its container
      */
     public Core_Class()
     {
         super();
         this.attribute_list = new ArrayList<Core_Attribute>();
         this.method_list = new ArrayList<Core_Method>();
+        this.container = new myClassBox();
     }
 
     /**
-     * Creates a class with a given name
+     * Creates a class with a given name and its container
      * @param name Name of the new class
      */
     public Core_Class(String name)
@@ -40,6 +43,7 @@ public class Core_Class extends Element
         super(name);
         this.attribute_list = new ArrayList<Core_Attribute>();
         this.method_list = new ArrayList<Core_Method>();
+        this.container = new myClassBox();
     }
 
     /**
@@ -126,5 +130,14 @@ public class Core_Class extends Element
     public List<Core_Method> get_methods()
     {
         return Collections.unmodifiableList(this.method_list);
+    }
+
+    /**
+     * 
+     * @return Reference to container box
+     */
+    public myClassBox get_container()
+    {
+        return this.container;
     }
 }

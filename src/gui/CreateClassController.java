@@ -12,7 +12,8 @@ import uml.core.Core_Attribute;
 import uml.core.Core_Class;
 import uml.core.Core_Method;
 
-public class CreateClassController {
+public class CreateClassController
+{
     public Stage actualWindow;
     Core_Class newClass;
     
@@ -55,6 +56,9 @@ public class CreateClassController {
     void CreateButton(ActionEvent event) {
         if(this.newClass.get_name() == "")
             this.newClass.rename("CLASS");
+
+        //TODO rovnake mena
+        
         this.actualWindow.close();
     }
 

@@ -1,4 +1,4 @@
-package gui;
+package uml.misc;
 
 import java.util.List;
 
@@ -8,22 +8,23 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import uml.core.Core_Attribute;
-import uml.core.Core_Class;
 import uml.core.Core_Method;
 
 public class myClassBox{
+    protected Label className;
+    protected Label classAttr;
+    protected Label classMeth; 
+    protected VBox container;
+    protected Separator separator1;
+    protected Separator separator2;
 
-    public Label className;
-    public Label classAttr;
-    public Label classMeth; 
-    public VBox container;
-    public Separator separator1;
-    public Separator separator2;
 
     public myClassBox()
     {
@@ -33,6 +34,12 @@ public class myClassBox{
         this.container = new VBox();
         this.separator1 = new Separator(Orientation.HORIZONTAL);
         this.separator2 = new Separator(Orientation.HORIZONTAL);
+
+        this.boxStyle();
+        this.labelName_style();
+        this.labelAttr_style();
+        this.labelMeth_style();
+        this.container.getChildren().addAll(this.className, this.separator1, this.classAttr, this.separator2, this.classMeth);
     }
 
     private void boxStyle()
@@ -79,6 +86,7 @@ public class myClassBox{
         this.classAttr.minWidth(138.00);
         this.classAttr.prefWidth(138.00);
         this.classAttr.setFont(Font.font("Calibri",15));
+        this.classAttr.setContentDisplay(ContentDisplay.CENTER);
     }
 
     private void labelMeth_style()
@@ -89,19 +97,32 @@ public class myClassBox{
         this.classMeth.minWidth(138.00);
         this.classMeth.prefWidth(138.00);
         this.classMeth.setFont(Font.font("Calibri",15));
+        this.classMeth.setContentDisplay(ContentDisplay.CENTER);
     }
 
-    public VBox createBox(Core_Class newClass)
-    {     
-        this.boxStyle();
-        this.labelName_style();
-        this.labelAttr_style();
-        this.labelMeth_style();
+    public void selectBoxGlow()
+    {
+        int depth = 50;
+        DropShadow borderGlow= new DropShadow();
+        borderGlow.setOffsetY(0f);
+        borderGlow.setOffsetX(0f);
+        borderGlow.setColor(Color.LIGHTSKYBLUE);
+        borderGlow.setWidth(depth);
+        borderGlow.setHeight(depth);
 
-        this.className.setText(newClass.get_name());
+        this.container.setEffect(borderGlow);
+    }
 
-        List<Core_Attribute> attrs = newClass.get_attributes();
-        List<Core_Method> meths = newClass.get_methods();
+    public void removeBoxGlow()
+    {
+        DropShadow borderGlow= new DropShadow();
+        borderGlow.setWidth(0);
+        borderGlow.setHeight(0);
+        this.container.setEffect(borderGlow);
+    }
+
+    public void setValues(String name, List<Core_Attribute> attrs, List<Core_Method> meths)
+    {    
         StringBuilder attributes = new StringBuilder();
         StringBuilder methods = new StringBuilder();
         
@@ -115,17 +136,20 @@ public class myClassBox{
             methods.append(meth.get_str_method()+"\n");
         }
 
-        System.out.println(attributes.toString());
-        System.out.println(methods.toString());
-
+        this.className.setText(name);
         this.classAttr.setText(attributes.toString());
         this.classMeth.setText(methods.toString());
 
-        this.container.getChildren().addAll(this.className, this.separator1, this.classAttr, this.separator2, this.classMeth);
-
-        return this.container;
+        
+        this.container.getChildren().set(0, this.className);
+        this.container.getChildren().set(2, this.classAttr);
+        this.container.getChildren().set(4, this.classMeth);
     }
 
+    public VBox get_vbox()
+    {
+        return this.container;
+    }
     /*public VBox updateBox(Core_Class myClass)
     {
 

@@ -39,7 +39,6 @@ public class App extends Application
             window.setScene(scene);
             window.show();
 
-
         }
         catch(IOException e){}
 
