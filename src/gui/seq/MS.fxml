@@ -26,7 +26,7 @@
                   <Button fx:id="addMess" layoutX="32.0" layoutY="795.0" mnemonicParsing="false" onAction="#new_method_popup" prefHeight="37.0" prefWidth="189.0" text="Add Message" />
                   <Button fx:id="removeMess" layoutX="258.0" layoutY="795.0" mnemonicParsing="false" onAction="#remove_message" prefHeight="37.0" prefWidth="189.0" text="Remove Message" />
                   <Button fx:id="removeClass" layoutX="720.0" layoutY="795.0" mnemonicParsing="false" onAction="#remove_class" prefHeight="37.0" prefWidth="189.0" text="Remove Class" />
-                  <Button fx:id="saveDia" layoutX="960.0" layoutY="795.0" mnemonicParsing="false" onAction="#save" prefHeight="37.0" prefWidth="189.0" text="Save Diagram" />
+                  <Button fx:id="saveDia" layoutX="960.0" layoutY="795.0" mnemonicParsing="false" onAction="#save" prefHeight="37.0" prefWidth="189.0" text="Save/Load Diagram" />
                   <ScrollPane layoutX="3.0" maxHeight="800.0" maxWidth="1836.0" prefHeight="775.0" prefWidth="1391.0">
                     <content>
                       <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1389.0">
