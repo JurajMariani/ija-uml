@@ -10,6 +10,8 @@ import uml.seq.Seq_Message;
 import uml.seq.Seq_Class;
 import uml.seq.Seq_IDable;
 
+import uml.io.save_seq_xml;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +23,7 @@ public class Seq_SequenceDiagram extends Seq_IDable{
     protected List<Core_Class> available_classes;
     protected List<Seq_Class> classlist;
     protected List<Seq_Message> messagelist;
+    protected save_seq_xml saver;
 
     public Seq_SequenceDiagram(String name, Core_ClassDiagram cd)
     {
@@ -35,6 +38,13 @@ public class Seq_SequenceDiagram extends Seq_IDable{
         Seq_Class ref = new Seq_Class(system, 0);
         ref.construct();
         this.classlist.add(ref);
+
+        saver = new save_seq_xml(this, this.get_name());
+    }
+
+    public save_seq_xml get_saver()
+    {
+        return this.saver;   
     }
 
     public boolean is_in_classlist()
@@ -162,6 +172,24 @@ public class Seq_SequenceDiagram extends Seq_IDable{
         return mess;
     }
 
+
+    public Seq_Message add_message_silent(Seq_Class src, Seq_Class dst, String name, Core_Method m, boolean ack, boolean constructor)
+    {
+        Seq_Message mess = null;
+
+        if(dst.is_constructed() || constructor)
+        {
+            if (constructor)
+                dst.construct();
+            mess = new Seq_Message(src, dst, ack, constructor);
+            mess.rename(name);
+            mess.set_ref(m);
+            this.messagelist.add(mess);
+        }
+
+        return mess;
+    }
+
     public List<Seq_Class> get_actors()
     {
         return Collections.unmodifiableList(this.classlist);
@@ -182,5 +210,19 @@ public class Seq_SequenceDiagram extends Seq_IDable{
         }
 
         return retList;
+    }
+
+    public List<Seq_Message> get_active_messages_with(int classId)
+    {
+        Seq_Class c = this.get_actor_by_id(classId);
+        List<Seq_Message> ret = new ArrayList<Seq_Message>();
+
+        for (Seq_Message m : this.messagelist)
+        {
+            if (m.get_caller() == c || m.get_receiver() == c)
+                ret.add(m);    
+        }
+
+        return ret;
     }
 }

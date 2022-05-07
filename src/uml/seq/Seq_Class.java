@@ -83,5 +83,9 @@ public class Seq_Class extends Seq_IDable{
     {
         return Collections.unmodifiableList(this.activity_list);
     }
-    
+
+    public void set_activity(List<Boolean> activ)
+    {
+        this.activity_list = activ;
+    }
 }

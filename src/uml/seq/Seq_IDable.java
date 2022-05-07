@@ -20,4 +20,9 @@ public class Seq_IDable extends Element
     {
         return this.id;
     }
+
+    public void reset_master()
+    {
+        instance = 2;
+    }
 }

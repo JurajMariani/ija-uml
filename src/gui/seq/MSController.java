@@ -27,6 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.scene.Node;
+import javafx.scene.Group;
 import javafx.stage.Stage;
 import javafx.collections.*;
 
@@ -50,11 +51,11 @@ public class MSController implements Initializable
     @FXML private Button removeClass;
     @FXML private Button removeMess;
     @FXML private Button changeMessage;
+    @FXML private Button saveDia;
 
     private ColumnConstraints col_size;
     private ObservableList<String> cbox_list;
 
-    @FXML private Label statusLabel;
     @FXML private AnchorPane ap;
 
     private double xStart = 54;
@@ -69,7 +70,7 @@ public class MSController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         col_size = new ColumnConstraints();
-        col_size.setPercentWidth(50);
+        col_size.setPrefWidth(80.0);
         this.gridM.getColumnConstraints().add(this.col_size);
         this.gridM.getColumnConstraints().add(this.col_size);
 
@@ -110,6 +111,7 @@ public class MSController implements Initializable
         this.system = this.sd.get_actor_by_id(1);
 
         this.gridM.setGridLinesVisible(false);
+        //System.out.println(this.gridM.getChildren());
 
         for (Core_Class avail : this.sd.get_available())
         {
@@ -126,6 +128,15 @@ public class MSController implements Initializable
         
         this.update_col_width();
         this.update_row_height();
+
+        Node gr = null;
+        for (Node n : this.gridM.getChildren())
+        {
+            if (n instanceof Group)
+                gr = n;
+        }
+
+        this.gridM.getChildren().remove(gr);
 
         this.cbox.setItems(this.cbox_list);
         
@@ -364,6 +375,75 @@ public class MSController implements Initializable
         }
     }
 
+    private void shift_layout_x(int col)
+    {
+        List<Node> auxNodeArray = new ArrayList<Node>();
+        for (Node n : this.gridM.getChildren())
+        {
+            if(this.gridM.getColumnIndex(n) > col)
+                auxNodeArray.add(n);
+        }
+
+        int cCol;
+        int row;
+        for (Node n : auxNodeArray)
+        {
+            cCol = this.gridM.getColumnIndex(n);
+            row  = this.gridM.getRowIndex(n);
+            this.gridM.getChildren().remove(n);
+            this.gridM.add(n, cCol - 1, row);
+        }
+
+        System.out.println("Shifting layout");
+        System.out.println("i: " + (col + 1));
+        System.out.println("max: " + this.sd.get_actors().size());
+        for (int i = col; i < this.sd.get_actors().size(); i++)
+        {
+            List<Seq_Message> m = this.sd.get_active_messages_with(this.sd.get_actors().get(i).get_instance());
+            System.out.println("xStep: " + this.xNextStep);
+            for (Seq_Message mess : m)
+            {
+                List<Node> nod = mess.get_line();
+                if (nod.size() == 3)
+                {
+                    Line l = ((Line)nod.get(0));
+                    Polygon p = ((Polygon)nod.get(1));
+                    Text t = ((Text)nod.get(2));
+
+                    t.setX(t.getX() - this.xNextStep);
+
+                    if (l.getStartX() > l.getEndX())
+                    {
+                        System.out.println(l.getStartX());
+                        l.setStartX(l.getStartX() - this.xNextStep);
+                        System.out.println(l.getStartX());
+                    }
+                    else
+                    {
+                        l.setEndX(l.getEndX() - this.xNextStep);
+
+                        ObservableList<Double> pts = p.getPoints();
+                        System.out.println(pts);
+                        ObservableList<Double> neu = FXCollections.observableArrayList();
+                        for(int j = 0; j < 6; j++)
+                        {
+                            if(j % 2 == 1)
+                                neu.add(pts.get(j));
+                            else
+                                neu.add(pts.get(j) - this.xNextStep);
+                        }
+                        p.getPoints().clear();
+                        p.getPoints().addAll(neu);
+                        System.out.println(neu);
+                    }
+                }
+                else
+                {
+                    //message to self
+                } 
+            }
+        }
+    }
 
     @FXML void remove_class()
     {
@@ -392,6 +472,19 @@ public class MSController implements Initializable
             System.out.println("Exception!");
             //e.printStackTrace();
         }
+
+        System.out.println(id);
+        for (Integer i : id)
+        {
+            this.handle_message_romoval(i);    
+        }
+
+        this.remove_nodes_gp(removed);
+
+        int idx = this.gridM.getColumnIndex(removed.get(0));
+        this.shift_layout_x(idx);
+        this.update_col_width();
+        this.col_index--;
     }
 
     @FXML void remove_message()
@@ -422,33 +515,44 @@ public class MSController implements Initializable
             //e.printStackTrace();
         }
 
-        //System.out.println(removed);
-        if (removed.size() > 0)
-        {
-            this.remove_lifeline_nodes(removed);
-            this.handle_message_romoval(id.get(0));
-        }
+        this.handle_message_romoval(id.get(0));
     }
 
 
-    private void remove_lifeline_nodes(List<Node> removed)
+    private List<Node> get_message_objects(int messageId)
     {
-        for (Node n : removed)
+        System.out.println("id " + messageId);
+        Seq_Message m = this.sd.get_message_by_id(messageId);
+        System.out.println(m);
+        int row = 2 + this.sd.get_messages().indexOf(m);
+        System.out.println("ROW: " + row);
+
+        List<Node> rem = new ArrayList<Node>();
+        for (Node n : this.gridM.getChildren())
         {
-            this.gridM.getChildren().remove(n);    
+            if (this.gridM.getRowIndex(n) == row)
+                rem.add(n);
         }
+
+        return rem;
     }
 
 
     private void handle_message_romoval(int messId)
     {
-        move_up(this.sd.get_messages().indexOf(this.sd.get_message_by_id(messId)));
+        List<Node> rm = this.get_message_objects(messId);
+        if (rm.size() > 0)
+        {
+            this.remove_nodes_gp(rm);
 
-        this.remove_nodes_ap(this.sd.get_message_by_id(messId).get_line());
-        this.row_index--;
-        this.sd.remove_message(this.sd.get_message_by_id(messId));
+            move_up(this.sd.get_messages().indexOf(this.sd.get_message_by_id(messId)));
 
-        this.adapt_rows();
+            this.remove_nodes_ap(this.sd.get_message_by_id(messId).get_line());
+            this.row_index--;
+            this.sd.remove_message(this.sd.get_message_by_id(messId));
+
+            this.adapt_rows();
+        }
     }
 
 
@@ -513,6 +617,18 @@ public class MSController implements Initializable
         }
 
         return maxRow;
+    }
+
+    private int get_max_filled_col_index()
+    {
+        int maxCol = 0;
+        for (Node n : this.gridM.getChildren())
+        {
+            if (this.gridM.getColumnIndex(n) > maxCol)
+                maxCol = this.gridM.getColumnIndex(n);
+        }
+
+        return maxCol;
     }
 
 
@@ -593,6 +709,43 @@ public class MSController implements Initializable
             }
             //System.out.println(a);
         }
+    }
+
+
+    @FXML void save()
+    {
+        FXMLLoader loader;
+
+        try
+        {
+            loader = new FXMLLoader(getClass().getResource("IOpanel.fxml"));
+            Stage updateWindow = new Stage();
+
+            updateWindow.setTitle("Load/Save Diagram");
+            updateWindow.initModality(Modality.APPLICATION_MODAL);
+
+            Scene scene = new Scene(loader.load());
+
+            IOpanelController controller = loader.getController();
+            controller.init(updateWindow, this.sd, this.gridM, this.ap);
+
+            updateWindow.setScene(scene);
+            updateWindow.showAndWait();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Exception!");
+            //e.printStackTrace();
+        }
+
+        this.row_index = this.get_max_filled_row_index();
+        this.col_index = this.get_max_filled_col_index();
+
+        this.update_col_width();
+        this.update_row_height();
+
+        this.remake_cbox();
+        this.gridM.add(this.cbox, ++this.col_index, 0);
     }
 
 }

@@ -84,7 +84,7 @@ public class Core_ClassDiagram extends Element
      * @param end_object
      * @return Reference to the created bond
      */
-    public Core_Link add_link(Element start_object, Element end_object)
+    public Core_Link add_link(Core_Class start_object, Core_Class end_object)
     {
         Core_Link link = new Core_Link(start_object, end_object);
         this.link_list.add( link );

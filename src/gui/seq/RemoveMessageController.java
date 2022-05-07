@@ -40,6 +40,9 @@ public class RemoveMessageController
         this.gp = g;
         this.mRowIdx = maxRow;
 
+        if (sd == null || g == null || nlist == null || id ==null)
+            System.out.println("NNNNNNNUUUUUUULLLLLL");
+
         this.nlist = nlist;
 
         this.fillCbox();
@@ -76,7 +79,7 @@ public class RemoveMessageController
 
             for (Node gridObject : this.gp.getChildren())
             {
-                if(!is_in_list(idxs, this.gp.getRowIndex(gridObject)))
+                if (!is_in_list(idxs, this.gp.getRowIndex(gridObject)))
                     idxs.add(this.gp.getRowIndex(gridObject));
             }
 
@@ -95,11 +98,11 @@ public class RemoveMessageController
         }
     }
 
-    private boolean is_in_list(List<Integer> x,int a)
+    private boolean is_in_list(List<Integer> x, int a)
     {
-        for (int n : x)
+        for (Integer n : x)
         {
-            if (n == a)
+            if (n.intValue() == a)
                 return true;    
         }
 
