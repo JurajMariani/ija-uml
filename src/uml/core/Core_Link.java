@@ -1,7 +1,9 @@
 package uml.core;
 
 
-import uml.core.Core_Class;
+import uml.core.Element;
+import javafx.scene.Node;
+import javafx.scene.shape.Line;
 import uml.core.Core_Typed;
 
 import java.util.List;
@@ -21,6 +23,7 @@ public class Core_Link extends Core_Typed
     protected Core_Class end_object;
     protected String start_card;
     protected String end_card;
+    protected Node[] link;
 
     /**
      * @param s_o Start object, in generalisation this object inherites
@@ -70,6 +73,15 @@ public class Core_Link extends Core_Typed
     }
 
     /**
+     * Add link beteween two classes
+     * @param newLink New link
+     */
+    public void add_link(Node[] newLink)
+    {
+        this.link = newLink;
+    }
+
+    /**
      * @return Array containing the start and end object references
      */
     public List<Core_Class> get_objects()
@@ -89,4 +101,14 @@ public class Core_Link extends Core_Typed
         String[] ret = { this.start_card, this.end_card };
         return ret;
     }
+
+    /**
+     * 
+     * @return Array containing all objects from link between classes
+     */
+    public Node[] get_link()
+    {
+        return this.link;
+    }
+
 }

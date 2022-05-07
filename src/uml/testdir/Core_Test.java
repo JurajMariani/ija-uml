@@ -70,7 +70,7 @@ public class Core_Test extends java.lang.Object
         assert cd.get_name() == "Class Diagram 1" : "Name should be Class Diagram 1";
         Core_Class calss = cd.add_class("Class 1");
         assert calss != null : "Class should not be null";
-        int[] position = calss.get_position();
+        double[] position = calss.get_position();
         assert ((position[0] == 0) && (position[1] == 0)) : "Position should be [0,0]";
         assert calss.get_name() == "Class 1" : "Class name should be Class 1";
         Core_Class calsss = cd.add_class("Class 2");

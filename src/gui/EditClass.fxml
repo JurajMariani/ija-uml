@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EditClassController">
+  <tabs>
+    <Tab text="Class">
+         <content>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="className" focusTraversable="false" layoutX="21.0" layoutY="56.0" promptText="Name" />
+                  <Button layoutX="21.0" layoutY="96.0" mnemonicParsing="false" onAction="#ChangeName" text="Change name" />
+                  <Label layoutX="21.0" layoutY="29.0" text="Edit name: " />
+                  <Button layoutX="323.0" layoutY="531.0" mnemonicParsing="false" onAction="#CloseButton" text="Close" />
+               </children>
+            </Pane>
+         </content></Tab>
+    <Tab text="Attributes">
+         <content>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="323.0" layoutY="531.0" mnemonicParsing="false" onAction="#CloseButton" text="Close" />
+                  <Label fx:id="attributes" layoutX="15.0" layoutY="14.0" maxHeight="130.0" maxWidth="670.0" prefHeight="130.0" prefWidth="670.0" style="-fx-border-color: #b3b3b3; -fx-border-radius: 5px;">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding></Label>
+                  <TextField fx:id="selectAttr" layoutX="257.0" layoutY="166.0" prefHeight="24.0" prefWidth="185.0" promptText="Attribute name" />
+                  <TextField fx:id="attrVal" layoutX="500.0" layoutY="291.0" prefHeight="24.0" prefWidth="185.0" promptText="Value" />
+                  <TextField fx:id="attrType" layoutX="257.0" layoutY="291.0" prefHeight="24.0" prefWidth="185.0" promptText="Type" />
+                  <Button layoutX="32.0" layoutY="154.0" mnemonicParsing="false" onAction="#AddAttr" text="Add" />
+                  <Button layoutX="32.0" layoutY="250.0" mnemonicParsing="false" onAction="#DelAttr" text="Delete" />
+                  <Button layoutX="32.0" layoutY="202.0" mnemonicParsing="false" onAction="#EditAttr" text="Edit" />
+                  <ChoiceBox fx:id="attrCB" layoutX="274.0" layoutY="343.0" prefWidth="150.0" />
+                  <Button layoutX="320.0" layoutY="202.0" mnemonicParsing="false" onAction="#GetAttrName" text="Select" />
+                  <TextField fx:id="attrName" layoutX="14.0" layoutY="291.0" prefHeight="24.0" prefWidth="185.0" promptText="Name" />
+               </children>
+            </Pane>
+         </content></Tab>
+      <Tab text="Methods">
+         <content>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="423.0" layoutY="531.0" mnemonicParsing="false" text="Close" />
+               </children>
+            </Pane>
+         </content>
+         <content>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="323.0" layoutY="531.0" mnemonicParsing="false" onAction="#CloseButton" text="Close" />
+                  <Label fx:id="methods" layoutX="15.0" layoutY="14.0" maxHeight="130.0" maxWidth="670.0" prefHeight="130.0" prefWidth="670.0" style="-fx-border-color: #b3b3b3; -fx-border-radius: 5px;" />
+                  <Button layoutX="23.0" layoutY="157.0" mnemonicParsing="false" onAction="#AddMeth" text="Add" />
+                  <Button layoutX="23.0" layoutY="195.0" mnemonicParsing="false" onAction="#EditMeth" text="Edit" />
+                  <Button layoutX="23.0" layoutY="234.0" mnemonicParsing="false" onAction="#DelMeth" text="Delete" />
+                  <TextField fx:id="selectMeth" layoutX="227.0" layoutY="195.0" promptText="Method name" />
+                  <Button layoutX="283.0" layoutY="234.0" mnemonicParsing="false" onAction="#GetMethName" text="Select" />
+                  <TextField fx:id="methName" layoutX="483.0" layoutY="157.0" promptText="Name" />
+                  <TextField fx:id="methType" layoutX="483.0" layoutY="195.0" promptText="Type" />
+                  <ChoiceBox fx:id="methCB" layoutX="493.0" layoutY="234.0" prefWidth="150.0" />
+                  <Separator layoutY="283.0" prefHeight="0.0" prefWidth="700.0" style="-fx-border-color: #b3b3b3;" />
+                  <Label fx:id="params" layoutX="15.0" layoutY="327.0" maxHeight="240.0" maxWidth="207.0" prefHeight="220.0" prefWidth="207.0" style="-fx-border-color: #b3b3b3; -fx-border-radius: 5px;" />
+                  <Label layoutX="18.0" layoutY="301.0" text="Parameters: ">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="242.0" layoutY="387.0" mnemonicParsing="false" onAction="#AddParam" text="Add" />
+                  <Button layoutX="242.0" layoutY="425.0" mnemonicParsing="false" onAction="#EditParam" text="Edit" />
+                  <Button layoutX="233.0" layoutY="464.0" mnemonicParsing="false" onAction="#DelParam" text="Delete" />
+                  <TextField fx:id="selectParam_Meth" layoutX="303.0" layoutY="305.0" promptText="Method name" />
+                  <Button layoutX="359.0" layoutY="346.0" mnemonicParsing="false" onAction="#GetMethName" text="Select" />
+                  <TextField fx:id="selectParam" layoutX="508.0" layoutY="305.0" promptText="Parameter name" />
+                  <Button layoutX="564.0" layoutY="346.0" mnemonicParsing="false" onAction="#GetParamName" text="Select" />
+                  <TextField fx:id="paramName" layoutX="408.0" layoutY="385.0" promptText="Name" />
+                  <TextField fx:id="paramVal" layoutX="408.0" layoutY="465.0" promptText="Value" />
+                  <TextField fx:id="paramType" layoutX="408.0" layoutY="426.0" promptText="Type" />
+               </children>
+            </Pane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>

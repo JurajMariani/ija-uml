@@ -12,8 +12,8 @@ package uml.core;
 public class Element extends java.lang.Object
 {
     protected String name;
-    protected int coordinate_x;
-    protected int coordinate_y;
+    protected double coordinate_x;
+    protected double coordinate_y;
 
     /**
      * Element constructor
@@ -63,7 +63,7 @@ public class Element extends java.lang.Object
      * @param new_x New X axis coordinate
      * @param new_y New Y axis coordinate
      */
-    public void move(int new_x, int new_y)
+    public void move(double new_x, double new_y)
     {
         this.coordinate_x = new_x;
         this.coordinate_y = new_y;
@@ -72,9 +72,9 @@ public class Element extends java.lang.Object
     /**
      * @return Element's X and Y axis coordinates
      */
-    public int[] get_position()
+    public double[] get_position()
     {
-        int[] ret = { this.coordinate_x, this.coordinate_y };
+        double[] ret = { this.coordinate_x, this.coordinate_y };
         return ret;
     }
 }
