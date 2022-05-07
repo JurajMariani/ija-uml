@@ -1,8 +1,12 @@
 package uml.core;
 
 
-import uml.core.Element;
+import uml.core.Core_Class;
 import uml.core.Core_Typed;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * CLASS: CORE LINK
@@ -13,8 +17,8 @@ import uml.core.Core_Typed;
  */
 public class Core_Link extends Core_Typed
 {
-    protected Element start_object;
-    protected Element end_object;
+    protected Core_Class start_object;
+    protected Core_Class end_object;
     protected String start_card;
     protected String end_card;
 
@@ -22,7 +26,7 @@ public class Core_Link extends Core_Typed
      * @param s_o Start object, in generalisation this object inherites
      * @param e_o End object,  in generalisation this object is inherited
      */
-    public Core_Link(Element s_o, Element e_o)
+    public Core_Link(Core_Class s_o, Core_Class e_o)
     {
         super();
         this.start_object = s_o;
@@ -34,7 +38,7 @@ public class Core_Link extends Core_Typed
     /**
      * @param o New starting object
      */
-    public void change_start(Element o)
+    public void change_start(Core_Class o)
     {
         this.start_object = o;
     }
@@ -42,7 +46,7 @@ public class Core_Link extends Core_Typed
     /**
      * @param o New end object
      */
-    public void change_end(Element o)
+    public void change_end(Core_Class o)
     {
         this.end_object = o;
     }
@@ -68,10 +72,13 @@ public class Core_Link extends Core_Typed
     /**
      * @return Array containing the start and end object references
      */
-    public Element[] get_objects()
+    public List<Core_Class> get_objects()
     {
-        Element[] ret = { this.start_object, this.end_object };
-        return ret;
+        List<Core_Class> ret = new ArrayList<Core_Class>();
+        ret.add(this.start_object);
+        ret.add(this.end_object);
+
+        return Collections.unmodifiableList(ret);
     }
 
     /**

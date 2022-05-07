@@ -51,6 +51,13 @@
     </javac>	
   </target>
 
+
+<target name="compile-seq">
+  <javac srcdir="./src" sourcepath="./src/gui/seq/SeqD.java" classpath="./src" destdir="./build" >
+    <compilerarg line="--module-path lib/javafx-sdk-18/lib/ --add-modules javafx.base,javafx.controls,javafx.fxml -Xlint:unchecked"/>
+  </javac>
+</target>
+
 <!-- Target for compilation of the project -->
 <target name="compile-gui">
     <javac srcdir="./src" sourcepath="./src/EntryP.java" classpath="./src" destdir="./build" >
@@ -78,9 +85,28 @@
   </jar>
 </target>
 
+<target name="jar-seq">
+    <jar destfile="./dest/ija-app.jar" filesetmanifest="skip" basedir="./build">
+      <zipgroupfileset dir="./lib/javafx-sdk-18/lib/" includes="*.*.jar" />
+      <manifest>
+          <attribute name="Main-Class" value="EntryP"/>
+          <attribute name="Class-Path" value="./EntryP"/>
+      </manifest>
+  </jar>
+</target>
+
 <!-- Generate documentation -->
   <target name="javadoc">
-    <javadoc destdir="./doc" classpath="./build" private="true" sourcepath="./src" packagenames="uml.*" />
+    <javadoc destdir="./doc" classpath="./build" private="true" sourcepath="./src" packagenames="uml.*, gui.*">
+    	<classpath>
+    	    <fileset dir="./lib/javafx-sdk-18/lib/">
+    	    	<include name="javafx.base.jar" />
+    	    	<include name="javafx.controls.jar" />
+    	    	<include name="javafx.fxml.jar" />
+    	    	<include name="javafx.graphics.jar" />
+    	    </fileset>
+    	</classpath>
+    </javadoc>
   </target>
  
   <!-- Defualt target to run all targets-->

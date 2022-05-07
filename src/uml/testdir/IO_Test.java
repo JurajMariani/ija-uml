@@ -65,7 +65,7 @@ public class IO_Test extends java.lang.Object
         meth.rename("x");
         meth.change_type("int");
 
-        store_xml store = new store_xml(cd, "./", "aaa");
+        store_xml store = new store_xml(cd, "aaa");
 
         attr = null;
         meth = null;
@@ -110,7 +110,7 @@ public class IO_Test extends java.lang.Object
         link.change_start_card("1");
         link.rename("works");
 
-        store = new store_xml(cd, "./", "bbb");
+        store = new store_xml(cd, "bbb");
 
         attr = null;
         meth = null;

@@ -31,10 +31,10 @@ public class store_xml extends java.lang.Object
     private String path;
     private String filename;
 
-    public store_xml(Core_ClassDiagram cd, String path, String filename)
+    public store_xml(Core_ClassDiagram cd, String filename)
     {
         this.c_diagram = cd;
-        this.path = path;
+        this.path = "./data/";
         this.filename = filename;
         System.out.println("I have been given: "+this.path + this.filename + ".\n");
 
@@ -165,13 +165,13 @@ public class store_xml extends java.lang.Object
                 Element object_item = document.createElement("objects");
                 link_item.appendChild(object_item);
 
-                uml.core.Element[] obj = link.get_objects();
+                List<Core_Class> obj = link.get_objects();
                 attribute = document.createAttribute("start");
-                attribute.setValue(obj[0].get_name());
+                attribute.setValue(obj.get(0).get_name());
                 object_item.setAttributeNode(attribute);
 
                 attribute = document.createAttribute("end");
-                attribute.setValue(obj[1].get_name());
+                attribute.setValue(obj.get(1).get_name());
                 object_item.setAttributeNode(attribute);
 
                 Element card = document.createElement("card");
