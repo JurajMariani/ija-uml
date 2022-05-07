@@ -177,9 +177,9 @@ public class MainSceneController
 
             for(Core_Link link : this.links)
             {
-                Element[] elems = link.get_objects();
+                List<Core_Class> elems = link.get_objects();
 
-                if(elems[0].get_name() == this.selectedClass.get_name() || elems[1].get_name() == this.selectedClass.get_name())
+                if(elems.get(0).get_name() == this.selectedClass.get_name() || elems.get(1).get_name() == this.selectedClass.get_name())
                     for(Node n : link.get_link())
                     {
                         this.pane.getChildren().remove(n);
