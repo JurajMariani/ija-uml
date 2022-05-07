@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AddLinkController">
+   <children>
+      <CheckBox fx:id="assCheckBox" layoutX="63.0" layoutY="63.0" mnemonicParsing="false" text="Association/Multiplicity" />
+      <Line endX="24.0" layoutX="389.0" layoutY="71.0" startX="-75.0" />
+      <CheckBox fx:id="genCheckBox" layoutX="63.0" layoutY="131.0" mnemonicParsing="false" text="Generalization" />
+      <Line endX="24.0" layoutX="389.0" layoutY="139.0" startX="-75.0" />
+      <Polygon fill="WHITE" layoutX="432.0" layoutY="169.0" points="-33.0, -17.0, -18.0, -30.0, -33.0, -43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Line endX="24.0" layoutX="389.0" layoutY="175.0" startX="-75.0" />
+      <CheckBox fx:id="aggCheckBox" layoutX="63.0" layoutY="167.0" mnemonicParsing="false" text="Aggregation" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="15.0" layoutX="398.0" layoutY="167.0" rotate="45.0" stroke="BLACK" strokeType="INSIDE" width="15.0" />
+      <Label layoutX="63.0" layoutY="31.0" text="Type of link between classes: ">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="63.0" layoutY="210.0" text="Style of line:  ">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="dotCheckBox" layoutX="63.0" layoutY="245.0" mnemonicParsing="false" text="Dotted" />
+      <CheckBox fx:id="dashCheckBox" layoutX="277.0" layoutY="245.0" mnemonicParsing="false" text="Dashed" />
+      <CheckBox fx:id="solidCheckBox" layoutX="504.0" layoutY="245.0" mnemonicParsing="false" text="Solid" />
+      <Line endX="24.0" layoutX="133.0" layoutY="287.0" startX="-75.0" style="-fx-stroke-dash-array: 2;" />
+      <Line endX="24.0" layoutX="353.0" layoutY="287.0" startX="-75.0" style="-fx-stroke-dash-array: 10;" />
+      <Line endX="24.0" layoutX="566.0" layoutY="287.0" startX="-75.0" />
+      <Label layoutX="63.0" layoutY="310.0" text="Choose classes: ">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="57.0" layoutY="430.0" text="Cardinality: ">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="459.0" text="Class 1: ">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="card1TF" layoutX="120.0" layoutY="455.0" />
+      <Label layoutX="50.0" layoutY="492.0" text="Class 2: ">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="card2TF" layoutX="120.0" layoutY="488.0" />
+      <Label layoutX="66.0" layoutY="338.0" text="Class 1: ">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="441.0" layoutY="338.0" text="Class 2: ">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Button layoutX="324.0" layoutY="556.0" mnemonicParsing="false" onAction="#Draw" text="Draw" />
+      <CheckBox fx:id="dirAssCheckBox" layoutX="63.0" layoutY="95.0" mnemonicParsing="false" text="Directed association" />
+      <Line endX="24.0" layoutX="388.0" layoutY="103.0" startX="-75.0" />
+      <Line endX="-50.0" endY="3.0" layoutX="463.0" layoutY="93.0" rotate="45.0" startX="-67.0" startY="3.0" />
+      <Line endX="-50.0" endY="3.0" layoutX="463.0" layoutY="107.0" rotate="-45.0" startX="-67.0" startY="3.0" />
+      <ChoiceBox fx:id="class1Box" layoutX="61.0" layoutY="363.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="class2Box" layoutX="441.0" layoutY="363.0" prefWidth="150.0" />
+   </children>
+</Pane>

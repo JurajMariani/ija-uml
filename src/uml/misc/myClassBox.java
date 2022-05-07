@@ -150,10 +150,11 @@ public class myClassBox{
     {
         return this.container;
     }
-    /*public VBox updateBox(Core_Class myClass)
+    
+    public String get_name()
     {
-
+        return this.className.getText();
     }
-    */
+    
 }
 
