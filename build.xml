@@ -34,6 +34,9 @@
       <fileset dir="./src/gui">
         <exclude name="**/*.java"/>
       </fileset>
+      <fileset dir="./src/gui/seq">
+      	<exclude name="**/*.java" />
+      </fileset>
     </copy>
   </target>
   

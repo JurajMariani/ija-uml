@@ -258,6 +258,7 @@ public class MainSceneController
             }
 
             Core_Link link = new Core_Link(start_obj, end_obj);
+            link.set_type(list.get(0));
             link.add_link(toDraw);
             
             if(list.get(4) != "")

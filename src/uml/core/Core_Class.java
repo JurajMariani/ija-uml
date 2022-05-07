@@ -58,6 +58,15 @@ public class Core_Class extends Element
     }
 
     /**
+     * Adds a prefilled Attribute variable to class
+     * @param new_attr prefilled attribute variable
+     */
+    public void add_attribute_object(Core_Attribute new_attr)
+    {
+        this.attribute_list.add(new_attr);
+    }
+
+    /**
      * Removes the reference to object 'attr' from the attribute list
      * @param attr reference to the to be removed attribute
      */
@@ -90,6 +99,16 @@ public class Core_Class extends Element
         Core_Method method = new Core_Method();
         this.method_list.add(method);
         return(method);
+    }
+
+
+    /**
+     * Adds a prefilled Method variable to class
+     * @param new_method Prefilled method variable
+     */
+    public void add_method_object(Core_Method new_method)
+    {
+        this.method_list.add(new_method);
     }
 
     /**

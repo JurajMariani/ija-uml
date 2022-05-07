@@ -23,6 +23,7 @@ public class Core_Link extends Core_Typed
     protected Core_Class end_object;
     protected String start_card;
     protected String end_card;
+    protected String l_type;
     protected Node[] link;
 
     /**
@@ -36,6 +37,39 @@ public class Core_Link extends Core_Typed
         this.end_object = e_o;
         this.start_card = "";
         this.end_card = "";
+    }
+
+    /**
+     * Sets the bond type
+     * If the new type is generalisation -> "gen", Start class inherits the end classes attributes and methods
+     * 
+     * @param new_type new bond type
+     */
+    public void set_type(String new_type)
+    {
+        this.l_type = new_type;
+
+        if(this.l_type.equals("gen"))
+        {
+            List<Core_Attribute> params = this.end_object.get_attributes();
+            List<Core_Method> methods = this.end_object.get_methods();
+            Core_Method tmp_m;
+            Core_Attribute tmp_a;
+
+            for (Core_Method m : methods)
+                this.start_object.add_method_object(m);
+
+            for (Core_Attribute a : params)
+                this.start_object.add_attribute_object(a);
+        }
+    }
+
+    /**
+     * @return Bond type
+     */
+    public String get_type()
+    {
+        return this.l_type;
     }
 
     /**
