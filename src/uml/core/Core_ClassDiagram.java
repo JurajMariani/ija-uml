@@ -44,9 +44,9 @@ public class Core_ClassDiagram extends Element
 
 
     /**
-     * 
-     * @param name
-     * @return
+     * Checks, whether a class with a given name exists
+     * @param name Checked name
+     * @return true if exists, otherwise false
      */
     private boolean class_name_already_exists(String name)
     {
