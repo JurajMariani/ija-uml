@@ -7,6 +7,7 @@ import java.util.Collections;
 import uml.core.Element;
 import uml.core.Core_Class;
 import uml.core.Core_Link;
+import uml.seq.Seq_SequenceDiagram;
 
 /**
  * CLASS: CORE CLASSDIAGRAM
@@ -19,6 +20,7 @@ public class Core_ClassDiagram extends Element
 {
     protected List<Core_Class> class_list;
     protected List<Core_Link> link_list;
+    protected List<Seq_SequenceDiagram> sds;
 
     /**
      * Bare constructor
@@ -29,6 +31,7 @@ public class Core_ClassDiagram extends Element
         super();
         this.class_list = new ArrayList<Core_Class>();
         this.link_list = new ArrayList<Core_Link>();
+        this.sds = new ArrayList<Seq_SequenceDiagram>();
     }
 
     /**
@@ -153,5 +156,32 @@ public class Core_ClassDiagram extends Element
     public List<Core_Link> get_links()
     {
         return Collections.unmodifiableList(this.link_list);
+    }
+
+    /**
+     * @return List containing all sequence diagrams
+     */
+    public List<Seq_SequenceDiagram> get_sequence_diagrams()
+    {
+        return Collections.unmodifiableList(this.sds);
+    }
+
+    /**
+     * @param idx Seq. Diagram index
+     * @return N-th Seq. Diagram
+     */
+    public Seq_SequenceDiagram get_seq_diagram(int idx)
+    {
+        if(idx < this.sds.size())
+            return this.sds.get(idx);
+    }
+
+    /**
+     * Adds a Seq. Diagram to collection
+     * @param sd
+     */
+    public void add_sd(Seq_SequenceDiagram sd)
+    {
+        this.sds.add(sd);
     }
 }

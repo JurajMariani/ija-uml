@@ -473,18 +473,21 @@ public class MSController implements Initializable
             //e.printStackTrace();
         }
 
-        System.out.println(id);
-        for (Integer i : id)
+        if(id.size() > 0)
         {
-            this.handle_message_romoval(i);    
+            System.out.println(id);
+            for (Integer i : id)
+            {
+                this.handle_message_romoval(i);    
+            }
+
+            this.remove_nodes_gp(removed);
+
+            int idx = this.gridM.getColumnIndex(removed.get(0));
+            this.shift_layout_x(idx);
+            this.update_col_width();
+            this.col_index--;
         }
-
-        this.remove_nodes_gp(removed);
-
-        int idx = this.gridM.getColumnIndex(removed.get(0));
-        this.shift_layout_x(idx);
-        this.update_col_width();
-        this.col_index--;
     }
 
     @FXML void remove_message()
@@ -514,8 +517,9 @@ public class MSController implements Initializable
             System.out.println("Exception!");
             //e.printStackTrace();
         }
-
-        this.handle_message_romoval(id.get(0));
+        
+        if (id.size() > 0)
+            this.handle_message_romoval(id.get(0));
     }
 
 
@@ -612,7 +616,7 @@ public class MSController implements Initializable
         int maxRow = 0;
         for (Node n : this.gridM.getChildren())
         {
-            if (this.gridM.getRowIndex(n) > maxRow)
+            if (this.gridM.getRowIndex(n) != null && this.gridM.getRowIndex(n) > maxRow)
                 maxRow = this.gridM.getRowIndex(n);
         }
 
