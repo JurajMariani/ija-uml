@@ -10,6 +10,7 @@ public class myLines {
     private double sCoordX, sCoordY;
     private double eCoordX, eCoordY;
     private String style;
+    private String type;
 
     public myLines(double s_x, double s_y, double e_x, double e_y,  String style)
     {
@@ -18,16 +19,12 @@ public class myLines {
         this.eCoordX = e_x;
         this.eCoordY = e_y;
         this.style = style;
+        this.type = "ass";
     }
 
     public Node[] ass()
     {
         Line mainLine = new Line();
-
-        /*System.out.print("s_x:"+ this.sCoordX + "\n");
-        System.out.print("s_y" + this.sCoordY + "\n");
-        System.out.print("e_x:"+this.eCoordX + "\n");
-        System.out.print("e_y" + this.eCoordY + "\n\n");*/
 
         mainLine.setStartX(this.sCoordX);
         mainLine.setStartY(this.sCoordY);
@@ -48,6 +45,7 @@ public class myLines {
 
     public Node[] dir()
     {
+        this.type = "dir";
         Line mainLine = new Line();
         Line sideline1 = new Line();
         Line sideline2 = new Line();
@@ -104,6 +102,7 @@ public class myLines {
 
     public Node[] gen()
     {
+        this.type = "gen";
         Line mainLine = new Line();
         Polygon triangel = new Polygon(-33.0, -17.0, -18.0, -30.0, -33.0, -43.0);
 
@@ -133,6 +132,7 @@ public class myLines {
 
     public Node[] agg()
     {
+        this.type = "agg";
         Line mainLine = new Line();
         Rectangle rect = new Rectangle(15,15);
 
@@ -161,5 +161,13 @@ public class myLines {
         return arr;
     }
 
+    public String get_type()
+    {
+        return this.type;
+    }
 
+    public String get_style()
+    {
+        return this.style;
+    }
 }

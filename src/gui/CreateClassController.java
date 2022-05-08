@@ -4,9 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import uml.core.Core_Attribute;
 import uml.core.Core_Class;
@@ -55,11 +57,13 @@ public class CreateClassController
     @FXML
     void CreateButton(ActionEvent event) {
         if(this.newClass.get_name() == "")
-            this.newClass.rename("CLASS");
-
-        //TODO rovnake mena
-        
-        this.actualWindow.close();
+        {
+            Alert a = new Alert(AlertType.WARNING);
+            a.setTitle("Class name");
+            a.setContentText("Class have to have name");
+            a.show();
+        }
+        else this.actualWindow.close();
     }
 
     @FXML

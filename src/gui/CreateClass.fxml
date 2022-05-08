@@ -25,7 +25,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="classNameTF" layoutX="27.0" layoutY="180.0" prefHeight="24.0" prefWidth="522.0" promptText="Name" style="-fx-border-radius: 50px;" text="CLASS" />
+                  <TextField fx:id="classNameTF" layoutX="27.0" layoutY="180.0" prefHeight="24.0" prefWidth="522.0" promptText="Name" style="-fx-border-radius: 50px;" />
                   <Button layoutX="27.0" layoutY="213.0" mnemonicParsing="false" onAction="#ChangeClassName" text="Change name" />
                </children>
             </AnchorPane>

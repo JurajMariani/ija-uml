@@ -73,7 +73,6 @@ public class AddLinkController {
     @FXML
     private void Draw(ActionEvent event)
     {
-
         if(this.assCheckBox.isSelected())
         {
             this.aggCheckBox.setDisable(true);

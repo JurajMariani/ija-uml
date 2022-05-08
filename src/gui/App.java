@@ -16,11 +16,16 @@ import uml.core.Core_ClassDiagram;
 
 public class App extends Application
 {
-    Stage window;
+    private Stage window;
 
     public static void run(String[] args)
     {
         launch(args);
+    }
+
+    public Stage get_primaryStage()
+    {
+        return this.window;
     }
 
     
@@ -32,17 +37,17 @@ public class App extends Application
             Core_ClassDiagram classDiagram = new Core_ClassDiagram();
             loader = new FXMLLoader(getClass().getResource("MainScene.fxml"));
             Parent root = loader.load();
-            window = primaryStage;
-            window.setTitle("MyUML");
-            window.getIcons().add(new Image("file:index.png"));
+            this.window = primaryStage;
+            this.window.setTitle("MyUML");
+            this.window.getIcons().add(new Image("file:index.png"));
             
             Scene scene = new Scene(root);
 
             MainSceneController controller = loader.getController();
-            controller.initData(window, classDiagram);
+            controller.initData(this.window, classDiagram);
 
-            window.setScene(scene);
-            window.show();
+            this.window.setScene(scene);
+            this.window.show();
 
         }
         catch(IOException e){}

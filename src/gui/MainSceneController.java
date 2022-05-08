@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -7,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,13 +17,17 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import uml.core.Core_Attribute;
 import uml.core.Core_Class;
 import uml.core.Core_ClassDiagram;
 import uml.core.Core_Link;
-import uml.core.Element;
+import uml.core.Core_Method;
+import uml.io.load_classDia;
+import uml.io.save_classDia;
 import uml.misc.myLines;
 
 public class MainSceneController
@@ -32,15 +36,18 @@ public class MainSceneController
     public Core_ClassDiagram classDiagram;
 
     public Core_Class selectedClass;
-    public Core_Class newClass;
 
     public List<Core_Link> links;
     private double mouseCoordX, mouseCoordY;
+
+    private boolean close;
+    private File file;
 
     @FXML private Button editButton;
     @FXML private Button selectButton;
     @FXML private Button deleteButton;
     @FXML private Button linkButton;
+    @FXML private Button createSeqDiaButton;
     @FXML private Pane pane;
     
     public void initData(Stage window, Core_ClassDiagram classDiagram)
@@ -50,6 +57,8 @@ public class MainSceneController
         this.selectedClass = new Core_Class();
         this.links = new ArrayList<Core_Link>();
         this.paneListener();
+        this.close = false;
+        this.file = null;
     }
 
     private void paneListener()
@@ -61,6 +70,7 @@ public class MainSceneController
             this.selectButton.setDisable(true);
             this.deleteButton.setDisable(true);     
             this.linkButton.setDisable(true);
+            this.createSeqDiaButton.setDisable(true);
             MouseEvent.consume();
         });
     }
@@ -81,6 +91,7 @@ public class MainSceneController
             this.selectButton.setDisable(false);
             this.deleteButton.setDisable(false);     
             this.linkButton.setDisable(false);
+            this.createSeqDiaButton.setDisable(false);
             mouseEvent.consume();
         });
 
@@ -109,9 +120,8 @@ public class MainSceneController
     @FXML
     void NewClass(ActionEvent event)
     {
-        // TODO ked sa ukonci krizikom
-
-        this.newClass = classDiagram.add_class("");
+        
+        Core_Class newClass = new Core_Class();
         FXMLLoader loader;
 
         try{
@@ -126,12 +136,59 @@ public class MainSceneController
             controller.initData(newClassWindow, newClass);
 
             newClassWindow.setScene(scene);
+
+            newClassWindow.setOnCloseRequest(WindowEvent ->{
+                MainSceneController.this.close = true;
+            });
+
             newClassWindow.showAndWait();
             
-            this.newClass.get_container().setValues(this.newClass.get_name(), this.newClass.get_attributes(), this.newClass.get_methods());
+            if(this.close)
+            {
+                this.close = false;
+                return;
+            }
 
-            this.makeDraggable(this.newClass);
-            this.pane.getChildren().add(this.newClass.get_container().get_vbox());
+            Core_Class writeClass = this.classDiagram.add_class(newClass.get_name());
+
+            if(writeClass == null)
+            {
+                Alert a = new Alert(AlertType.WARNING);
+                a.setTitle("Create class");
+                a.setContentText("Class with this name already exist");
+                a.show();
+                return;
+            }
+
+            for(Core_Attribute attr : newClass.get_attributes())
+            {
+                Core_Attribute a = writeClass.add_attribute();
+                a.rename(attr.get_name());
+                a.change_type(attr.get_type());
+                a.change_value(attr.get_value());
+                a.change_visibility(attr.get_visibility());
+            }
+
+            for(Core_Method meth : newClass.get_methods())
+            {
+                Core_Method m = writeClass.add_method();
+                m.change_type(meth.get_type());
+                m.change_visibility(meth.get_visibility());
+                m.rename(meth.get_name());
+
+                for(Core_Attribute param : meth.get_params())
+                {
+                    Core_Attribute p = m.add_param();
+                    p.rename(param.get_name());
+                    p.change_type(param.get_type());
+                    p.change_value(param.get_value());
+                }
+            }
+
+            writeClass.get_container().setValues(writeClass.get_name(), writeClass.get_attributes(), writeClass.get_methods());
+
+            this.makeDraggable(writeClass);
+            this.pane.getChildren().add(writeClass.get_container().get_vbox());
         }
         catch(IOException e){}
 
@@ -192,9 +249,8 @@ public class MainSceneController
             this.selectButton.setDisable(true);
             this.deleteButton.setDisable(true);
             this.linkButton.setDisable(true);
-        }
-
-        
+            this.createSeqDiaButton.setDisable(true);
+        }  
     }
     
     @FXML
@@ -209,7 +265,7 @@ public class MainSceneController
     void LinkClasses(ActionEvent event)
     {
         FXMLLoader loader;
-        
+
         try{
             loader = new FXMLLoader(getClass().getResource("AddLink.fxml"));
             Stage addWindow = new Stage();
@@ -222,20 +278,24 @@ public class MainSceneController
             controller.initData(addWindow, this.classDiagram.get_classes());
             
             addWindow.setScene(scene);
+
+            addWindow.setOnCloseRequest(WindowEvent -> {
+                MainSceneController.this.close = true;
+            });
+
             addWindow.showAndWait();
             
-            addWindow.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                public void handle(WindowEvent we)
-                {
-                    return;
-                }
-            });
-            
+            if(this.close) 
+            {
+                this.close = false;
+                return;
+            }
+
             List<String> list = controller.get_vals();
 
             Core_Class start_obj = this.classDiagram.get_class(list.get(2));
             Core_Class end_obj = this.classDiagram.get_class(list.get(3));
-
+            
             double s_x, s_y, e_x, e_y;
             s_x = start_obj.get_position()[0];
             s_y = start_obj.get_position()[1];
@@ -257,9 +317,9 @@ public class MainSceneController
                     toDraw = handler.gen(); break;
             }
 
-            Core_Link link = new Core_Link(start_obj, end_obj);
+            Core_Link link = this.classDiagram.add_link(start_obj, end_obj);
             link.set_type(list.get(0));
-            link.add_link(toDraw);
+            link.add_line(toDraw);
             
             if(list.get(4) != "")
                 link.change_start_card(list.get(4));
@@ -280,22 +340,97 @@ public class MainSceneController
     @FXML
     void LoadDiagram(ActionEvent event)
     {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load");
+        fileChooser.getExtensionFilters().addAll(new ExtensionFilter("CXML Files", "*.cxml"));
 
+        this.file = fileChooser.showOpenDialog(this.actualWindow);
+
+        if(file == null)
+        {
+            Alert a = new Alert(AlertType.WARNING);
+            a.setTitle("Open file");
+            a.setContentText("Cannot open chosen file");
+            a.show();
+            return;
+        }
+        load_classDia load = new load_classDia(this.pane, this.file);
+        int retVal = load.load();
+
+        if(retVal == 1)
+        {
+            Alert a = new Alert(AlertType.INFORMATION);
+            a.setTitle("Load file");
+            a.setContentText("Cannot load chosen file");
+            a.show();
+            return;
+        }
     }
 
     @FXML
     void SaveDiagram(ActionEvent event)
     {
+        boolean flag = false;
+        File tmp = this.file;
+
+        if(this.file != null)
+        {
+            this.file.delete();
+            flag = true;
+        }
+        
+        if(!flag)
+        {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save");
+            fileChooser.getExtensionFilters().addAll(new ExtensionFilter("CXML Files", "*.cxml"));
+            this.file = fileChooser.showSaveDialog(this.actualWindow);
+        }
+        else this.file = tmp; 
+
+        this.saveToFile();
         
     }
 
-    /*@FXML
-    void HandlePaneAction(ActionEvent event)
+    @FXML
+    void SaveAs(ActionEvent event)
     {
-        /*for( Node node : this.pane.getChildren())
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save");
+        fileChooser.getExtensionFilters().addAll(new ExtensionFilter("CXML Files", "*.cxml"));
+
+        this.file = fileChooser.showSaveDialog(this.actualWindow);
+
+        this.saveToFile();
+    }
+
+    @FXML
+    void CreateSeqDia(ActionEvent event)
+    {
+
+    }
+
+    private void saveToFile()
+    {
+        if(this.file == null)
         {
-            System.out.print(node.layoutXProperty().getName() + "\n");
+            Alert a = new Alert(AlertType.INFORMATION);
+            a.setTitle("File save");
+            a.setContentText("Cannot create file to save");
+            a.show();
+            return;
         }
-        return;
-    }*/
+        save_classDia save = new save_classDia(this.classDiagram, this.file);
+        int retVal = save.save();
+
+        if(retVal == 1)
+        {
+            Alert a = new Alert(AlertType.INFORMATION);
+            a.setTitle("Saving file");
+            a.setContentText("Saving file was unsuccesful");
+            a.show();
+            return;
+        }
+        else System.out.print("Great Success (Save file)\n");
+    }
 }

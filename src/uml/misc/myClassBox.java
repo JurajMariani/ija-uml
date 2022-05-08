@@ -155,6 +155,5 @@ public class myClassBox{
     {
         return this.className.getText();
     }
-    
 }
 
