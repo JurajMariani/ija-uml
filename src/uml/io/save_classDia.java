@@ -56,7 +56,7 @@ public class save_classDia {
             attribute.setValue(this.classDia.get_name());
             root_elem.setAttributeNode(attribute);
 
-            Element classes_list = document.createElement("sClasses");
+            Element classes_list = document.createElement("Classes");
             root_elem.appendChild(classes_list);
 
             for (Core_Class c : this.classDia.get_classes())
@@ -112,11 +112,21 @@ public class save_classDia {
                     attribute.setValue(meth.get_type());
                     classMeth.setAttributeNode(attribute);
                     
-                    Element methParam = document.createElement("parameters");
-                    classMeth.appendChild(methParam);
+                    attribute = document.createAttribute("visibility");
+
+                    switch(meth.get_visibility())
+                    {
+                        case 0 : attribute.setValue("Public"); break;
+                        case 1 : attribute.setValue("Private"); break;
+                        case 2: attribute.setValue("Protected"); break;
+                    }
+                    classMeth.setAttributeNode(attribute);
 
                     for(Core_Attribute param : meth.get_params())
                     {
+                        Element methParam = document.createElement("parameters");
+                        classMeth.appendChild(methParam);
+
                         attribute = document.createAttribute("name");
                         attribute.setValue(param.get_name());
                         methParam.setAttributeNode(attribute);
@@ -128,15 +138,6 @@ public class save_classDia {
                         attribute = document.createAttribute("value");
                         attribute.setValue(param.get_value());
                         methParam.setAttributeNode(attribute);
-
-                        attribute = document.createAttribute("visibility");
-                        switch(param.get_visibility())
-                        {
-                            case 0 : attribute.setValue("Public"); break;
-                            case 1 : attribute.setValue("Private"); break;
-                            case 2: attribute.setValue("Protected"); break;
-                        }
-                        classMeth.setAttributeNode(attribute);
                     }
                 }   
 
@@ -155,7 +156,7 @@ public class save_classDia {
                 position.setAttributeNode(attribute);
             }
             
-            Element links_list = document.createElement("sLinks");
+            Element links_list = document.createElement("Links");
             root_elem.appendChild(classes_list);
 
             for(Core_Link l : this.classDia.get_links())

@@ -359,7 +359,13 @@ public class MainSceneController
             a.show();
             return;
         }
-        load_classDia load = new load_classDia(this.pane, this.file);
+
+        for(Node n : this.pane.getChildren())
+        {
+            this.pane.getChildren().remove(n);
+        }
+
+        load_classDia load = new load_classDia(this.pane, this.file, this.classDiagram, this);
         int retVal = load.load();
 
         if(retVal == 1)
