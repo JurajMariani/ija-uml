@@ -83,13 +83,11 @@ public class RemoveClassController
             String[] str_id = this.classList.getValue().toString().split(":",0);
             int cInst = Integer.parseInt(str_id[str_id.length - 1]);
 
-            System.out.println("User selected smthng");
             List<Seq_Message> mList = this.sd.get_active_messages_with(cInst);
 
             if(mList == null)
                 return;
 
-            System.out.println(mList);
             for (Seq_Message m : mList)
                 id.add(m.get_instance());
 
@@ -103,9 +101,6 @@ public class RemoveClassController
             }
 
             this.sd.remove_actor(this.sd.get_actor_by_id(cInst));
-
-            System.out.println(id);
-            System.out.println(nlist);
 
             this.aWindow.close();
         }

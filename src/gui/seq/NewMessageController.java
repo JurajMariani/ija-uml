@@ -122,11 +122,9 @@ public class NewMessageController
         this.dInstance = Integer.parseInt(str_id[str_id.length - 1]);
         
         this.olist = FXCollections.observableArrayList();
-        System.out.println("toci sa, " + this.dInstance);
 
         for (Core_Method meth : this.sd.get_actor_by_id(this.dInstance).get_reference_class().get_methods())
         {
-            System.out.println("tociiiiiii");
             this.olist.add(meth.get_str_method());
         }
 
@@ -202,10 +200,9 @@ public class NewMessageController
             String[] str_id = this.rec_chb.getValue().toString().split(":",0);
             int eInstance = Integer.parseInt(str_id[str_id.length - 1]);
             String method = this.mess_cbx.getValue().toString();
-            System.out.println(method);
+            
             name = method.substring(1, method.indexOf('('));
             ref = this.sd.get_actor_by_id(this.dInstance).get_reference_class().get_method(name);
-            System.out.println(name);
         }
         
         name = name + "(" + ((ta.getText() == null) ? "" : ta.getText()) + ")";

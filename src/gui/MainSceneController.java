@@ -29,6 +29,8 @@ import uml.core.Core_Method;
 import uml.io.load_classDia;
 import uml.io.save_classDia;
 import uml.misc.myLines;
+import uml.seq.Seq_SequenceDiagram;
+import gui.seq.MSController;
 
 public class MainSceneController
 {
@@ -192,6 +194,7 @@ public class MainSceneController
         }
         catch(IOException e){}
 
+        this.update_sequence_diagrams();
     }
 
     @FXML
@@ -217,6 +220,8 @@ public class MainSceneController
 
         }
         catch(IOException e){}
+
+        this.update_sequence_diagrams();
     }
 
     @FXML
@@ -407,7 +412,24 @@ public class MainSceneController
     @FXML
     void CreateSeqDia(ActionEvent event)
     {
+        FXMLLoader loader;
+        Seq_SequenceDiagram seq_dia = new Seq_SequenceDiagram(this.classDiagram.get_name() + " Sequence diagram", this.classDiagram);
+        this.classDiagram.add_sd(seq_dia);
 
+        try{
+            loader = new FXMLLoader(getClass().getResource("seq/MS.fxml"));
+            Stage seq_diagram = new Stage();
+            seq_diagram.setTitle(this.classDiagram.get_name() + " Sequence diagram");
+
+            Scene scene = new Scene(loader.load());
+
+            MSController controller = loader.getController();
+            controller.init(seq_diagram, seq_dia);
+
+            seq_diagram.setScene(scene);
+            seq_diagram.show();
+        }
+        catch(IOException e){}
     }
 
     private void saveToFile()
@@ -432,5 +454,13 @@ public class MainSceneController
             return;
         }
         else System.out.print("Great Success (Save file)\n");
+    }
+
+    private void update_sequence_diagrams()
+    {
+        for(Seq_SequenceDiagram sequence : this.classDiagram.get_sequence_diagrams())
+        {
+            sequence.attribute_update();
+        }
     }
 }

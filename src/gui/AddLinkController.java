@@ -164,7 +164,7 @@ public class AddLinkController {
         else this.window.close();
     }
 
-    public List get_vals()
+    public List<String> get_vals()
     {
         List<String> list = new ArrayList<String>();
 

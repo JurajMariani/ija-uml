@@ -56,9 +56,6 @@ public class RemoveMessageController
         this.gp = g;
         this.mRowIdx = maxRow;
 
-        if (sd == null || g == null || nlist == null || id ==null)
-            System.out.println("NNNNNNNUUUUUUULLLLLL");
-
         this.nlist = nlist;
 
         this.fillCbox();
@@ -94,11 +91,9 @@ public class RemoveMessageController
             Seq_Message rem = this.sd.get_message_by_id(mId);
 
             int mRow = 2 + this.sd.get_messages().indexOf(rem);
-            System.out.println("ROW: " + mRow);
 
             List<Integer> idxs = new ArrayList<Integer>();
 
-            System.out.println(this.gp.getChildren());
 
             for (Node gridObject : this.gp.getChildren())
             {
@@ -108,11 +103,9 @@ public class RemoveMessageController
 
             for (Node gridObject : this.gp.getChildren())
             {
-                System.out.println("Object row: " + this.gp.getRowIndex(gridObject));
                 
                 if (idxs.get(mRow) == this.gp.getRowIndex(gridObject))
                 {
-                    System.out.println("Toto: " + gridObject);
                     this.nlist.add(gridObject);
                 }
             }

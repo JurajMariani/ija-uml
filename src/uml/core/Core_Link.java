@@ -107,10 +107,10 @@ public class Core_Link extends Core_Typed
     }
 
     /**
-     * Add link beteween two classes
-     * @param newLink New link
+     * Add line beteween two classes
+     * @param newLink New link line
      */
-    public void add_link(Node[] newLink)
+    public void add_line(Node[] newLink)
     {
         this.link = newLink;
     }

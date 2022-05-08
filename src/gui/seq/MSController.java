@@ -34,7 +34,13 @@ import javafx.collections.*;
 import uml.seq.*;
 import uml.core.*;
 
-
+/**
+ * CLASS: MS CONTROLLER
+ * 
+ * <p> Class MSController handles the main SEQ. Diagram scene
+ *
+ * @author Juraj Mariani
+ */
 public class MSController implements Initializable
 {
     public Stage aWindow;
@@ -58,6 +64,7 @@ public class MSController implements Initializable
 
     @FXML private AnchorPane ap;
 
+    
     private double xStart = 54;
     private double yStart = 65.5 + 20;
     private double xStep = 150;
@@ -66,8 +73,12 @@ public class MSController implements Initializable
 
     private double xNextStep = xStep + xStepWidth + 13;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb)
+    /**
+     * Controller initializer
+     * @param url FXML URL
+     * @param rb Resource
+     */
+    @Override public void initialize(URL url, ResourceBundle rb)
     {
         col_size = new ColumnConstraints();
         col_size.setPrefWidth(80.0);
@@ -81,6 +92,9 @@ public class MSController implements Initializable
         this.gridM.setHgap(100.0);
     }
 
+    /**
+     * Column constraints adder
+     */
     public void update_col_width()
     {
         this.gridM.getColumnConstraints().clear();
@@ -91,6 +105,9 @@ public class MSController implements Initializable
         }
     }
 
+    /**
+     * Row constrints adder
+     */
     public void update_row_height()
     {
         this.gridM.getRowConstraints().clear();
@@ -103,6 +120,11 @@ public class MSController implements Initializable
         }
     }
 
+    /**
+     * Initializer
+     * @param cWindow Window Stage
+     * @param sqD Reference Seq. Diagram
+     */
     public void init(Stage cWindow, Seq_SequenceDiagram sqD)
     {
         this.cbox_list = FXCollections.observableArrayList();
@@ -111,7 +133,6 @@ public class MSController implements Initializable
         this.system = this.sd.get_actor_by_id(1);
 
         this.gridM.setGridLinesVisible(false);
-        //System.out.println(this.gridM.getChildren());
 
         for (Core_Class avail : this.sd.get_available())
         {
@@ -124,7 +145,6 @@ public class MSController implements Initializable
             this.gridM.add(rectum, 0, i);
             this.gridM.setHalignment(rectum, HPos.CENTER);
         }
-        //cez get row constraints - 1 item pre kazdu row, tak isto pre stlpce, tak prepis
         
         this.update_col_width();
         this.update_row_height();
@@ -143,7 +163,10 @@ public class MSController implements Initializable
         this.cbox.setOnAction(e -> this.shift_layout());
     }
 
-
+    /**
+     * New Message Stage loader
+     * @param event Event
+     */
     @FXML void new_method_popup(ActionEvent event)
     {
         FXMLLoader loader;
@@ -174,17 +197,23 @@ public class MSController implements Initializable
         catch(Exception e)
         {
             System.out.println("Exception!");
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
-
+    /**
+     * Unused - Should have facilitated change on class rename
+     */
     public void update_class_label()
     {
         
     }
 
-
+    /**
+     * Compute line coordinates
+     * @param mess Base message
+     * @return Array of points
+     */
     private double[] get_line_coords(Seq_Message mess)
     {
 
@@ -205,12 +234,15 @@ public class MSController implements Initializable
         ret[2] = this.xStart + ((eIndex - 1 < 0 ? 0 : eIndex - 1) * this.xNextStep) + (eIndex == 0 ? 0 : this.xStep);
         ret[3] = (this.row_index - 2) * this.yStep + this.yStart;
 
-        //System.out.println(ret[0] + " " +  ret[1] + " " + ret[2] + " " + ret[3]);
-
         return ret;
     }
 
-
+    /**
+     * Message polygon(Triangle) generation
+     * @param mess Base message
+     * @param coors Message line coordinates
+     * @return Polygon instance
+     */
     private Polygon get_message_polygon(Seq_Message mess, double[] coors)
     {
         Seq_Class s = mess.get_caller();
@@ -218,8 +250,6 @@ public class MSController implements Initializable
 
         int sIndex = this.sd.get_actors().indexOf(s);
         int eIndex = this.sd.get_actors().indexOf(e);
-
-        System.out.println(coors[2]+" "+ coors[3]);
 
         Polygon p = new Polygon();
         if (sIndex < eIndex)
@@ -238,13 +268,11 @@ public class MSController implements Initializable
         return p;
     }
 
-
+    /**
+     * Message line creation
+     */
     private void draw_message()
     {
-        System.out.println("------------ DRAW MESSAGE -----------");
-        System.out.print(this.sd.get_messages());
-        System.out.println("\n-------------------------------------");
-
         List<Seq_Message> messList = this.sd.get_messages();
         Seq_Message mess = messList.get(messList.size() - 1);
 
@@ -285,15 +313,26 @@ public class MSController implements Initializable
         mess.set_line(messLines, end, messageText);
     }
 
-
+    /**
+     * Creates a new object ComboBox
+     */
     private void remake_cbox()
     {
+        this.cbox_list.clear();
+        for (Core_Class avail : this.sd.get_available())
+        {
+            this.cbox_list.add(avail.get_name());
+        }
+
         this.cbox = new ComboBox<String>();
         this.cbox.setItems(this.cbox_list);
         this.cbox.setPromptText("Select Actor");
         this.cbox.setOnAction(e -> this.shift_layout());
     }
 
+    /**
+     * Generates lifeline for all object currently displayed
+     */
     private void generate_lifeline()
     {
         Seq_Message lastMessage = this.sd.get_messages().get(this.sd.get_messages().size() - 1);
@@ -319,7 +358,11 @@ public class MSController implements Initializable
         this.row_index++;
     }
 
-
+    /**
+     * Lifeline generator after addition
+     * @param col Class column in the GridPane
+     * @param c Class
+     */
     private void generate_lifeline_spec(int col, Seq_Class c)
     {
         Rectangle rec;
@@ -332,7 +375,9 @@ public class MSController implements Initializable
         }
     }
 
-
+    /**
+     * Shifts layout after adding a class
+     */
     private void shift_layout()
     {
         Seq_Class newA = this.sd.add_actor(this.sd.get_actor_ref(this.cbox.getValue()), this.row_index);
@@ -344,21 +389,21 @@ public class MSController implements Initializable
 
         this.generate_lifeline_spec(this.col_index, newA);
         
-        System.out.println("Col index = " + this.col_index);
         if(this.col_index != 8)
         {
             this.remake_cbox();
 
-            System.out.print(this.sd.get_actors());
             this.col_index++;
-            System.out.println(this.col_index);
             this.gridM.add(this.cbox, this.col_index, 0);
             this.gridM.setHalignment(this.cbox, HPos.CENTER);
             this.update_col_width();
         }
     }
 
-
+    /**
+     * Remove nodes from GridPane
+     * @param rm Node List
+     */
     private void remove_nodes_gp(List<Node> rm)
     {
         for(Node a : rm)
@@ -367,6 +412,10 @@ public class MSController implements Initializable
         }
     }
 
+    /**
+     * Remove nodes from AnchorPane
+     * @param rm Node List
+     */
     private void remove_nodes_ap(List<Node> rm)
     {
         for(Node a : rm)
@@ -375,6 +424,10 @@ public class MSController implements Initializable
         }
     }
 
+    /**
+     * Shift layout after class removal
+     * @param col Class index
+     */
     private void shift_layout_x(int col)
     {
         List<Node> auxNodeArray = new ArrayList<Node>();
@@ -394,13 +447,9 @@ public class MSController implements Initializable
             this.gridM.add(n, cCol - 1, row);
         }
 
-        System.out.println("Shifting layout");
-        System.out.println("i: " + (col + 1));
-        System.out.println("max: " + this.sd.get_actors().size());
         for (int i = col; i < this.sd.get_actors().size(); i++)
         {
             List<Seq_Message> m = this.sd.get_active_messages_with(this.sd.get_actors().get(i).get_instance());
-            System.out.println("xStep: " + this.xNextStep);
             for (Seq_Message mess : m)
             {
                 List<Node> nod = mess.get_line();
@@ -414,16 +463,13 @@ public class MSController implements Initializable
 
                     if (l.getStartX() > l.getEndX())
                     {
-                        System.out.println(l.getStartX());
                         l.setStartX(l.getStartX() - this.xNextStep);
-                        System.out.println(l.getStartX());
                     }
                     else
                     {
                         l.setEndX(l.getEndX() - this.xNextStep);
 
                         ObservableList<Double> pts = p.getPoints();
-                        System.out.println(pts);
                         ObservableList<Double> neu = FXCollections.observableArrayList();
                         for(int j = 0; j < 6; j++)
                         {
@@ -434,7 +480,6 @@ public class MSController implements Initializable
                         }
                         p.getPoints().clear();
                         p.getPoints().addAll(neu);
-                        System.out.println(neu);
                     }
                 }
                 else
@@ -445,6 +490,9 @@ public class MSController implements Initializable
         }
     }
 
+    /**
+     * Remove Class Stage loader
+     */
     @FXML void remove_class()
     {
         FXMLLoader loader;
@@ -470,12 +518,9 @@ public class MSController implements Initializable
         catch(Exception e)
         {
             System.out.println("Exception!");
-            //e.printStackTrace();
         }
 
-        if(id.size() > 0)
-        {
-            System.out.println(id);
+            //System.out.println(id);
             for (Integer i : id)
             {
                 this.handle_message_romoval(i);    
@@ -487,9 +532,11 @@ public class MSController implements Initializable
             this.shift_layout_x(idx);
             this.update_col_width();
             this.col_index--;
-        }
     }
 
+    /**
+     * Remove message Stage loader
+     */
     @FXML void remove_message()
     {
         FXMLLoader loader;
@@ -515,21 +562,20 @@ public class MSController implements Initializable
         catch(Exception e)
         {
             System.out.println("Exception!");
-            //e.printStackTrace();
         }
         
         if (id.size() > 0)
             this.handle_message_romoval(id.get(0));
     }
 
-
+    /**
+     * @param messageId Message ID
+     * @return Objects associated with a message(Rectangles from the GridPane)
+     */
     private List<Node> get_message_objects(int messageId)
     {
-        System.out.println("id " + messageId);
         Seq_Message m = this.sd.get_message_by_id(messageId);
-        System.out.println(m);
         int row = 2 + this.sd.get_messages().indexOf(m);
-        System.out.println("ROW: " + row);
 
         List<Node> rem = new ArrayList<Node>();
         for (Node n : this.gridM.getChildren())
@@ -541,7 +587,9 @@ public class MSController implements Initializable
         return rem;
     }
 
-
+    /**
+     * @param messId Removes the message, Shapes associated with it and moves everything below one row up
+     */
     private void handle_message_romoval(int messId)
     {
         List<Node> rm = this.get_message_objects(messId);
@@ -559,7 +607,9 @@ public class MSController implements Initializable
         }
     }
 
-
+    /**
+     * Adapt rows after message removal
+     */
     private void adapt_rows()
     {
         boolean isIn = false;
@@ -570,24 +620,19 @@ public class MSController implements Initializable
             isIn = false;
             for (Node n : this.gridM.getChildren())
             {
-                //System.out.println("idx: " + this.gridM.getRowIndex(n));
                 if (this.gridM.getRowIndex(n) == i)
                     isIn = true;
             }
 
-            //System.out.println("LOOP END");
             if (!isIn)
             {
                 break;
             }
         }
-        //System.out.println("i: " + i + ", ridx: " + (this.row_index + 1));
         List<Node> toBeMovedUp = new ArrayList<Node>();
         if (!isIn)
         {
             int max = this.get_max_filled_row_index();
-            //Node swapNode;
-            //System.out.println("i: " + i + " maxrow: " + max);
             for(i += 1; i <= max; i++)
             {
                 for (Node n : this.gridM.getChildren())
@@ -607,10 +652,11 @@ public class MSController implements Initializable
             this.gridM.getChildren().remove(node);
             this.gridM.add(node, c, r - 1);
         }
-        System.out.println("Adapt rows");
     }
 
-
+    /**
+     * @return The last filled row index of the GridPane
+     */
     private int get_max_filled_row_index()
     {
         int maxRow = 0;
@@ -623,6 +669,9 @@ public class MSController implements Initializable
         return maxRow;
     }
 
+    /**
+     * @return The last filled column index of the GridPane
+     */
     private int get_max_filled_col_index()
     {
         int maxCol = 0;
@@ -635,7 +684,9 @@ public class MSController implements Initializable
         return maxCol;
     }
 
-
+    /**
+     * Change Message Stage loader
+     */
     @FXML void changeMess()
     {
         FXMLLoader loader;
@@ -663,7 +714,10 @@ public class MSController implements Initializable
         }
     }
 
-
+    /**
+     * After message removal moves other messages up one row
+     * @param from_idx ID of the deleted message
+     */
     private void move_up(int from_idx)
     {
         int lcnter = 0;
@@ -674,7 +728,6 @@ public class MSController implements Initializable
         {
             if (a instanceof Line)
             {
-                //System.out.println("Line " + lcnter);
                 if(lcnter > from_idx)
                 {
                     ((Line)(a)).setStartY(((Line)(a)).getStartY() - this.yStep);
@@ -684,7 +737,6 @@ public class MSController implements Initializable
             }
             if(a instanceof Polygon)
             {
-                //System.out.println("Poly " + pcnter);
                 if(pcnter > from_idx)
                 {
                     ObservableList<Double> pts = ((Polygon)(a)).getPoints();
@@ -711,11 +763,12 @@ public class MSController implements Initializable
                 }
                 tcnter++;
             }
-            //System.out.println(a);
         }
     }
 
-
+    /**
+     * Load / Store Stage loader
+     */
     @FXML void save()
     {
         FXMLLoader loader;
@@ -739,7 +792,6 @@ public class MSController implements Initializable
         catch(Exception e)
         {
             System.out.println("Exception!");
-            //e.printStackTrace();
         }
 
         this.row_index = this.get_max_filled_row_index();

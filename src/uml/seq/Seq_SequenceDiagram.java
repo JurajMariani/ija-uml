@@ -162,6 +162,8 @@ public class Seq_SequenceDiagram extends Seq_IDable{
      */
     public void attribute_update()
     {
+        this.available_classes = cd.get_classes();
+
         for (Seq_Class c : this.classlist)
         {
             c.update();    

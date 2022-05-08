@@ -126,6 +126,8 @@ public class Seq_Message extends Seq_IDable
     {
         if(this.reference_method != null)
             this.rename(this.reference_method.get_str_method());
+        
+        this.messageText.setText(this.reference_method.get_name() + " ID:" + this.get_instance());
     }
 
     /**

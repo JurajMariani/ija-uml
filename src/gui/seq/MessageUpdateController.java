@@ -116,7 +116,6 @@ public class MessageUpdateController
      */
     @FXML void updateSelected()
     {
-        System.out.println("Apply");
         if (this.nMessList.getValue() == null && this.params.getText().equals(""))
             this.aWindow.close();
         

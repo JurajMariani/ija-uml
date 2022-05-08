@@ -174,6 +174,8 @@ public class Core_ClassDiagram extends Element
     {
         if(idx < this.sds.size())
             return this.sds.get(idx);
+        
+        return null;
     }
 
     /**
