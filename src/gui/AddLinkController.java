@@ -15,6 +15,15 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import uml.core.Core_Class;
 
+
+/**
+ * CLASS: Add link controller
+ * 
+ * <p> Class AddLinkController controls scene for creating new link between objects
+ *
+ * @author Denis Horil
+ */
+
 public class AddLinkController {
     private Stage window;
     private List<Core_Class> classList;
@@ -45,7 +54,10 @@ public class AddLinkController {
 
     @FXML private TextField card1TF;
     @FXML private TextField card2TF;
-
+    
+    /**
+     * Initialization of attributes connected to scene
+     */
     @FXML 
     private void initialize()
     {
@@ -56,6 +68,12 @@ public class AddLinkController {
         this.classerr = false;
     }
 
+
+    /**
+     * Controller initializer
+     * @param window Actual stage
+     * @param list  List of class
+     */
     public void initData(Stage window, List<Core_Class> list)
     {
         this.window = window;
@@ -70,6 +88,11 @@ public class AddLinkController {
         this.class2Box.setItems(classNames);
     }
 
+
+    /**
+     * Function modify attributes based on inputs from user
+     * @param event Event handler
+     */
     @FXML
     private void Draw(ActionEvent event)
     {
@@ -164,6 +187,10 @@ public class AddLinkController {
         else this.window.close();
     }
 
+    /**
+     * Returns list of values from modified attributes
+     * @return List 
+     */
     public List<String> get_vals()
     {
         List<String> list = new ArrayList<String>();

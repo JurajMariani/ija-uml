@@ -32,6 +32,15 @@ import uml.misc.myLines;
 import uml.seq.Seq_SequenceDiagram;
 import gui.seq.MSController;
 
+/**
+ * /**
+ * CLASS: Main scene controller
+ * 
+ * <p> Class MainSceneController handles main scene
+ *
+ * @author Denis Horil
+ */
+
 public class MainSceneController
 {
     public Stage actualWindow;
@@ -52,6 +61,11 @@ public class MainSceneController
     @FXML private Button createSeqDiaButton;
     @FXML private Pane pane;
     
+    /**
+     * Initialization of window and new class attributes
+     * @param window Actual window
+     * @param c Class to be edited
+     */
     public void initData(Stage window, Core_ClassDiagram classDiagram)
     {
         this.actualWindow = window;
@@ -63,6 +77,9 @@ public class MainSceneController
         this.file = null;
     }
 
+    /**
+     * Handling mouse actions on pane
+     */
     private void paneListener()
     {
         this.pane.setOnMouseClicked(MouseEvent ->{
@@ -77,6 +94,10 @@ public class MainSceneController
         });
     }
 
+    /**
+     * Make class draggable
+     * @param c Class to be made draggable
+     */
     public void makeDraggable(Core_Class c)
     {   
         Node obj = c.get_container().get_vbox();
@@ -119,6 +140,10 @@ public class MainSceneController
         });
     }
 
+    /**
+     * Creates new class of class diagram
+     * @param event Event handler
+     */
     @FXML
     void NewClass(ActionEvent event)
     {
@@ -197,6 +222,10 @@ public class MainSceneController
         this.update_sequence_diagrams();
     }
 
+    /**
+     * Edit class from class diagram
+     * @param event Event handler
+     */
     @FXML
     void EditClass(ActionEvent event)
     {
@@ -224,6 +253,10 @@ public class MainSceneController
         this.update_sequence_diagrams();
     }
 
+    /**
+     * Delete class from class diagram
+     * @param event Event handler
+     */
     @FXML
     void DeleteClass(ActionEvent event)
     {
@@ -258,6 +291,10 @@ public class MainSceneController
         }  
     }
     
+    /**
+     * Select class and writes info about it
+     * @param event Event handler
+     */
     @FXML
     void SelectClass(ActionEvent event)
     {

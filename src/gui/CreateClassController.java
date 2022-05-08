@@ -14,6 +14,14 @@ import uml.core.Core_Attribute;
 import uml.core.Core_Class;
 import uml.core.Core_Method;
 
+/**
+ * /**
+ * CLASS: Create class controller
+ * 
+ * <p> Class CreateClassController handles scene for creating new class
+ *
+ * @author Denis Horil
+ */
 public class CreateClassController
 {
     public Stage actualWindow;
@@ -38,6 +46,9 @@ public class CreateClassController
 
     @FXML private Label wrongMethod;
 
+    /**
+     * Initialization of attributes connected to scene
+     */
     @FXML
     private void initialize()
     {
@@ -48,12 +59,19 @@ public class CreateClassController
         this.methodChoiceBox.setItems(this.visibilityChoice);
     }
 
+    /**
+     * Initialization of window and new class attributes
+     */
     void initData(Stage window, Core_Class newClass)
     {
         this.actualWindow = window;
         this.newClass = newClass;
     }
 
+    /**
+     * Function closes this window
+     * @param event Event handler
+     */
     @FXML
     void CreateButton(ActionEvent event) {
         if(this.newClass.get_name() == "")
@@ -66,12 +84,20 @@ public class CreateClassController
         else this.actualWindow.close();
     }
 
+    /**
+     * Changes class name
+     * @param event Event handler
+     */
     @FXML
     void ChangeClassName(ActionEvent event){
         this.newClass.rename(this.classNameTF.getText());
         this.classNameTF.setText("");
     }
 
+    /**
+     * Add attributes and its values to class
+     * @param event Event handler
+     */
     @FXML
     void AddAttrButton(ActionEvent event) {
         String attrName = this.attrNameTF.getText();
@@ -99,6 +125,10 @@ public class CreateClassController
         this.attrValueTF.setText("");
     }
 
+    /**
+     * Add methods and its values to class
+     * @param event
+     */
     @FXML
     void AddMethodButton(ActionEvent event) {
         String methodName = this.methodNameTF.getText();
@@ -124,6 +154,10 @@ public class CreateClassController
         this.methodTypeTF.setText("");
     }
 
+    /**
+     * Add method parameters and its values to class
+     * @param event
+     */
     @FXML
     void AddParamButton(ActionEvent event){
         String paramName = this.paramNameTF.getText();

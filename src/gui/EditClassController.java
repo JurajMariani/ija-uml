@@ -14,6 +14,14 @@ import uml.core.Core_Attribute;
 import uml.core.Core_Class;
 import uml.core.Core_Method;
 
+/**
+ * /**
+ * CLASS: Edit class controller
+ * 
+ * <p> Class CreateClassController handles scene for editing classes
+ *
+ * @author Denis Horil
+ */
 public class EditClassController {
     @FXML private TextField className;
 
@@ -42,6 +50,11 @@ public class EditClassController {
     Stage window;
     Core_Class actualClass;
     
+    /**
+     * Initialization of window and new class attributes
+     * @param window Actual window
+     * @param c Class to be edited
+     */
     public void initData(Stage window, Core_Class c)
     {
         this.actualClass = c;
@@ -71,6 +84,9 @@ public class EditClassController {
         this.params.setText(params.toString());
     }
 
+    /**
+     * Initialization of attributes connected to scene
+     */
     @FXML void initialize()
     {
         this.attrCB.setValue("Public");
@@ -80,17 +96,29 @@ public class EditClassController {
         this.methCB.setItems(this.visibilityChoice);
     }
 
+    /**
+     * Closes this window
+     * @param event Event handler
+     */
     @FXML void CloseButton(ActionEvent event)
     {
         this.window.close();
     }
 
+    /**
+     * Rename class
+     * @param event Event handler
+     */
     @FXML void ChangeName(ActionEvent event)
     {
         this.actualClass.rename(this.className.getText());
         this.className.setText("");
     }
 
+    /**
+     * Add new class attribute
+     * @param event Event handler
+     */
     @FXML void AddAttr(ActionEvent event)
     {
         String attrName = this.attrName.getText();
@@ -119,6 +147,10 @@ public class EditClassController {
         this.selectAttr.setText("");
     }
 
+    /**
+     * Edit class attribute
+     * @param event Event handler
+     */
     @FXML void EditAttr(ActionEvent event)
     {
         String select = this.selectAttr.getText();
@@ -150,6 +182,10 @@ public class EditClassController {
 
     }
 
+    /**
+     * Delete class attribute
+     * @param event Event handler
+     */
     @FXML void DelAttr(ActionEvent event)
     {
         String select = this.selectAttr.getText();
@@ -163,6 +199,10 @@ public class EditClassController {
         this.selectAttr.setText("");
     }
 
+    /**
+     * Search in list of class attributes and modifies scene
+     * @param event Event handler
+     */
     @FXML void GetAttrName(ActionEvent event)
     {
         String wantedAttr = this.selectAttr.getText();
@@ -191,6 +231,10 @@ public class EditClassController {
         }
     }
 
+    /**
+     * Add new class method
+     * @param event Event handler
+     */
     @FXML void AddMeth(ActionEvent event)
     {
         String methName = this.methName.getText();
@@ -217,6 +261,10 @@ public class EditClassController {
 
     }
 
+    /**
+     * Edit class method
+     * @param event Event handler
+     */
     @FXML void EditMeth(ActionEvent event)
     {
         String select = this.selectMeth.getText();
@@ -243,6 +291,10 @@ public class EditClassController {
         this.selectMeth.setText("");
     }
 
+    /**
+     * Delete method
+     * @param event Event handler
+     */
     @FXML void DelMeth(ActionEvent event)
     {
         String select = this.selectMeth.getText();
@@ -255,6 +307,10 @@ public class EditClassController {
         this.selectMeth.setText("");
     }
 
+    /**
+     * Search in list of class methods and modifies scene
+     * @param event Event handler
+     */
     @FXML void GetMethName(ActionEvent event)
     {
         String wantedMeth = this.selectMeth.getText();
@@ -282,6 +338,10 @@ public class EditClassController {
         }
     }
 
+    /**
+     * Add method parameter
+     * @param event Event handler
+     */
     @FXML void AddParam(ActionEvent event)
     {
         String paramName = this.paramName.getText();
@@ -303,6 +363,10 @@ public class EditClassController {
         this.selectParam.setText("");
     }
 
+    /**
+     * Edit method parameters
+     * @param event Event handler
+     */
     @FXML void EditParam(ActionEvent event)
     {
         String paramName = this.paramName.getText();
@@ -326,6 +390,10 @@ public class EditClassController {
 
     }
 
+    /**
+     * Delete method parameters
+     * @param event Event handler
+     */
     @FXML void DelParam(ActionEvent event)
     {
         String wantedParam = this.selectParam.getText();
@@ -342,6 +410,10 @@ public class EditClassController {
         this.selectParam.setText("");
     }
 
+    /**
+     * Search in list of method parameters and modifies scene
+     * @param event Event handler
+     */
     @FXML void GetParamName(ActionEvent event)
     {
         String wantedParam = this.selectParam.getText();
@@ -375,6 +447,10 @@ public class EditClassController {
         }
     }
 
+    /**
+     * Search in list of class methods and modifies scene
+     * @param event Event handler
+     */
     @FXML void GetParam_MethName(ActionEvent event)
     {
         String wantedMeth = this.selectMeth.getText();

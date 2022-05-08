@@ -39,7 +39,6 @@ public class App extends Application
             Parent root = loader.load();
             this.window = primaryStage;
             this.window.setTitle("MyUML");
-            //this.window.getIcons().add(new Image("file:./lib/index.png"));
             
             Scene scene = new Scene(root);
 
