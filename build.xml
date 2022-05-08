@@ -39,27 +39,6 @@
       </fileset>
     </copy>
   </target>
-  
-    <target name="compile-libs">
-	<javac srcdir="./src/uml/core/" destdir="./build">
-	</javac>
-	<javac srcdir="./src/uml/io/" destdir="./build">
-	</javac>
-  </target>
-
-  <!-- Target for compiling the java code-->
-  <target name="compile" depends="compile-libs">
-    <javac srcdir="./src/uml/testdir/" destdir="./build">
-	  <classpath path="./build" />
-    </javac>	
-  </target>
-
-
-<target name="compile-seq">
-  <javac srcdir="./src" sourcepath="./src/gui/seq/SeqD.java" classpath="./src" destdir="./build" >
-    <compilerarg line="--module-path lib/javafx-sdk-18/lib/ --add-modules javafx.base,javafx.controls,javafx.fxml -Xlint:unchecked"/>
-  </javac>
-</target>
 
 <!-- Target for compilation of the project -->
 <target name="compile-gui">
@@ -69,26 +48,7 @@
   </target>
 
   <!-- Create an executable JAR archive -->
-  <target name="jar" depends="compile">
-    <jar destfile="./dest/ija-app.jar" filesetmanifest="skip" basedir="./build">
-    <manifest>
-          <attribute name="Main-Class" value="uml.testdir.Core_Test"/>
-          <attribute name="Class-Path" value=""/>
-      </manifest>
-  </jar>
-</target>
-
-<target name="jar-gui" depends="compile-gui, move-fxml">
-    <jar destfile="./dest/ija-app.jar" filesetmanifest="skip" basedir="./build">
-      <zipgroupfileset dir="./lib/javafx-sdk-18/lib/" includes="*.*.jar" />
-      <manifest>
-          <attribute name="Main-Class" value="EntryP"/>
-          <attribute name="Class-Path" value="./EntryP"/>
-      </manifest>
-  </jar>
-</target>
-
-<target name="jar-seq">
+<target name="jar" depends="compile-gui, move-fxml">
     <jar destfile="./dest/ija-app.jar" filesetmanifest="skip" basedir="./build">
       <zipgroupfileset dir="./lib/javafx-sdk-18/lib/" includes="*.*.jar" />
       <manifest>
@@ -116,10 +76,6 @@
   <target name="app" depends="get-lib, jar, javadoc">
     <description>Main target</description>
 	  <chmod file="./dest/ija-app.jar" perm="+x"/>
-  </target>
-
-  <target name="run" depends="app">
-    <description>Execute JAR archive</description>
     <java jar="./dest/ija-app.jar" classpath="./build" fork="true" />
   </target>
   
@@ -127,12 +83,5 @@
     <description>Execute JAR archive</description>
     <java jar="./dest/ija-app.jar" classpath="./build" fork="true" />
   </target>
-  
-  
-  <target name="gui" depends="jar-gui, javadoc">
-      <chmod file="./dest/ija-app.jar" perm="+x"/>
-  </target>
- 
- <!-- <compilerarg line="-\-module-path lib/javafx-sdk-18/lib/ -\-add-modules javafx.base,javafx.controls,javafx.fxml"/> -->
 
 </project>
