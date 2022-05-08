@@ -20,6 +20,13 @@ import javafx.collections.*;
 import uml.seq.*;
 import uml.core.*;
 
+/**
+ * CLASS: REMOVE MESSAGE CONTROLLER
+ * 
+ * <p> Class RemoveMessageController defines a GUI controller for "RemoveMessage.fxml" scene
+ *
+ * @author Juraj Mariani
+ */
 public class RemoveMessageController
 {
     public Stage aWindow;
@@ -33,6 +40,15 @@ public class RemoveMessageController
     @FXML private ComboBox<String> messageList;
     @FXML private Button confirm;
 
+    /**
+     * Controller Constructor
+     * @param cWin Window Stage
+     * @param sd Reference to a Seq. Diagram
+     * @param g GUI GridPane
+     * @param maxRow Last filled row index
+     * @param nlist List of nodes that get deleted (OUTGOING)
+     * @param id List of deleted Message IDs (OUTGOING)
+     */
     public void init(Stage cWin, Seq_SequenceDiagram sd, GridPane g, int maxRow, List<Node> nlist, List<Integer> id)
     {
         this.aWindow = cWin;
@@ -50,6 +66,9 @@ public class RemoveMessageController
         this.confirm.setOnAction(e -> this.confirmSelection(id));
     }
 
+    /**
+     * Fill a ComboBox with Messages present in the Diagram
+     */
     private void fillCbox()
     {
         for (Seq_Message mess : this.sd.get_messages())
@@ -59,6 +78,10 @@ public class RemoveMessageController
         this.messageList.getItems().addAll(this.olist);
     }
 
+    /**
+     * Confirm Button OnClick method - fills the OUTGOING Lists with Rectangle Object to be removed and removed Message ID
+     * @param messId
+     */
     private void confirmSelection(List<Integer> messId)
     {
         if(this.messageList.getValue() != null)
@@ -98,6 +121,11 @@ public class RemoveMessageController
         }
     }
 
+    /**
+     * @param x List of integers
+     * @param a Int value
+     * @return True - Int is in list, otherwise False
+     */
     private boolean is_in_list(List<Integer> x, int a)
     {
         for (Integer n : x)

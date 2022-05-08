@@ -26,13 +26,24 @@ import javafx.scene.text.Text;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Line; 
 
+/**
+ * CLASS: SAVE SEQ XML
+ * 
+ * <p> Class save_message_xml handles saving Seq. Diagrams in an XML format, with the .sxml extenstion. Files are saved in the ./data folder
+ *
+ * @author Juraj Mariani
+ */
 public class save_seq_xml
 {
     protected Seq_SequenceDiagram sd;
     protected String path;
     protected String filename;
 
-
+    /**
+     * Constructor
+     * @param sd Reference to the source object
+     * @param filename Name of the savefile
+     */
     public save_seq_xml(Seq_SequenceDiagram sd, String filename)
     {
         this.sd = sd;
@@ -41,11 +52,18 @@ public class save_seq_xml
         System.out.println("I have been given: "+this.path + this.filename + ".\n");
     }
 
+    /**
+     * @param name New file name
+     */
     public void change_filename(String name)
     {
         this.filename = name + ".sxml";
     }
 
+    /**
+     * Main saving method - XML generator
+     * @return Status -> 0 = success, 1 = fail
+     */
     public int save()
     {
         try {
@@ -235,6 +253,7 @@ public class save_seq_xml
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             
+            /** Makes the created XML savefile readable by a human(indents and newlines) but creates problems when loading. Thereore it is not used.*/
             /*transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");

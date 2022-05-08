@@ -35,10 +35,16 @@ import javafx.collections.*;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 
-
-
+/**
+ * CLASS: LOAD SEQ XML
+ * 
+ * <p> Class load_seq_xml handles loading a diagram from a .sxml file
+ *
+ * @author Juraj Mariani
+ */
 public class load_seq_xml  
 {
+    /** Path to ./data is fixed but later implementation could change that */
     protected String path = "./data/";
     protected String filename;
     protected Seq_SequenceDiagram sd;
@@ -47,7 +53,13 @@ public class load_seq_xml
     protected int currDisplacement;
     protected int loadDisplacement;
 
-
+    /**
+     * Constructor
+     * @param name Filename
+     * @param sd Reference to a *should be* BLANK Sequence Diagram(Only with System Actor and one ComboBox)
+     * @param g Reference to GUI GridPane
+     * @param a Reference to GUI AnchorPane
+     */
     public load_seq_xml(String name, Seq_SequenceDiagram sd, GridPane g, AnchorPane a)
     {
         this.ap = a;
@@ -56,6 +68,10 @@ public class load_seq_xml
         this.sd = sd;
     }
 
+    /**
+     * Main method - Handles XML to Seq_SequenceDiagram
+     * @return Status - 0 = OK, 1 = FAIL
+     */
     public int load()
     {
         try
@@ -208,13 +224,23 @@ public class load_seq_xml
         return 0;
     }
 
-
+    /**
+     * (Redundant) Calculating correct Object ID - has been replaced by resetting ID counter
+     * @param id Object ID
+     * @return Corrected ID
+     */
     private int get_correct_id(int id)
     {
         return (id - this.loadDisplacement + this.currDisplacement);
     }
 
-
+    /**
+     * (Getter) Receives NodeLists of Classes and Messages and returns an XML Node of an Object with next available ID
+     * @param id Current ID
+     * @param sClass NodeList of Classes
+     * @param messL NodeList of Messages
+     * @return XML Node with next ID
+     */
     private Element next(int id, NodeList sClass, NodeList messL)
     {
         System.out.println("Next id: " + id);
@@ -239,6 +265,9 @@ public class load_seq_xml
         return null;
     }
 
+    /**
+     * @return ComboBox instance in the GUI GridPane
+     */
     private ComboBox find_cbox()
     {
         for (javafx.scene.Node n : this.gp.getChildren())
@@ -250,6 +279,10 @@ public class load_seq_xml
         return null;
     }
 
+    /**
+     * For System Actor to generate a correct number of Rectangle objects
+     * @return Length of the longest class activity list
+     */
     private int find_max_activity()
     {
         int max = 0;
@@ -262,7 +295,9 @@ public class load_seq_xml
         return max;
     }
 
-
+    /**
+     * GUI Line and Lifeline generator
+     */
     private void generate_grid_layout()
     {
         int i;

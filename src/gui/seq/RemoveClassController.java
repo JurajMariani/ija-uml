@@ -20,6 +20,13 @@ import javafx.collections.*;
 import uml.seq.*;
 import uml.core.*;
 
+/**
+ * CLASS: REMOVE CLASS CONTROLLER
+ * 
+ * <p> Class RemoveClassController handles Selection window for ckass removal
+ *
+ * @author Juraj Mariani
+ */
 public class RemoveClassController
 {
     public Stage aWindow;
@@ -29,6 +36,15 @@ public class RemoveClassController
     @FXML private ComboBox<String> classList;
     @FXML private Button confirm;
 
+    /**
+     * Initializator
+     * @param cWin Window Stage
+     * @param sd Reference to Seq. Diagram
+     * @param g Reference to GUI GridPane
+     * @param maxRow Reference to GUI AnchorPane
+     * @param nlist List of GUI Nodes to be removed (OUTGOING)
+     * @param id List of Message IDs to be removed (OUTGOING)
+     */
     public void init(Stage cWin, Seq_SequenceDiagram sd, GridPane g, int maxRow, List<Node> nlist, List<Integer> id)
     {
         this.aWindow = cWin;
@@ -40,6 +56,9 @@ public class RemoveClassController
         this.confirm.setOnAction(e -> this.confirmSelection(nlist, id));
     }
 
+    /**
+     * Fill the Class selecting ComboBox with existing Actors
+     */
     private void fillCbox()
     {
         ObservableList<String> itemList = FXCollections.observableArrayList();
@@ -52,6 +71,11 @@ public class RemoveClassController
         this.classList.getItems().addAll(itemList);
     }
 
+    /**
+     * Button onClick()
+     * @param nlist List (OUTGOING) of GUI Nodes to be removed
+     * @param id List (OUTGOING) of Message IDs to be removed
+     */
     private void confirmSelection(List<Node> nlist, List<Integer> id)
     {
         if (this.classList.getValue() != null)

@@ -26,6 +26,13 @@ import uml.core.*;
 import uml.io.load_seq_xml;
 import uml.io.save_seq_xml;
 
+/**
+ * CLASS: IO PANEL CONTROLLER
+ * 
+ * <p> Class IOPanelController handles the Load/Store functionality
+ *
+ * @author Juraj Mariani
+ */
 public class IOpanelController
 {
     public Stage aWindow;
@@ -39,6 +46,13 @@ public class IOpanelController
     @FXML private TextField filename;
     @FXML private Button io;
 
+    /**
+     * Initializator
+     * @param cWin Window Stage
+     * @param sd Reference to a Seq. Diagram
+     * @param g Reference to GUI GridPane
+     * @param a Reference to GUI AnchorPane
+     */
     public void init(Stage cWin, Seq_SequenceDiagram sd, GridPane g, AnchorPane a)
     {
         this.aWindow = cWin;
@@ -51,6 +65,9 @@ public class IOpanelController
         this.io.setDisable(true);
     }
 
+    /**
+     * Confirm button OnClick method - commands the loading / saving of the environment
+     */
     @FXML void doIO()
     {
 
@@ -98,6 +115,9 @@ public class IOpanelController
         }
     }
 
+    /**
+     * Save CheckBox onClick() - Disables the load options
+     */
     @FXML void flipS()
     {
         if(this.storeO.isSelected())
@@ -114,6 +134,9 @@ public class IOpanelController
         }
     }
 
+    /**
+     * Load CheckBox onClick() - Disables the save options
+     */
     @FXML void flipL()
     {
         if(this.loadO.isSelected())

@@ -25,6 +25,13 @@ import javafx.collections.*;
 import uml.seq.*;
 import uml.core.*;
 
+/**
+ * CLASS: MESSAGE UPDATE CONTROLLER
+ * 
+ * <p> Class MessageUpdateController handles the Message Update popup window
+ *
+ * @author Juraj Mariani
+ */
 public class MessageUpdateController
 {
     public Stage aWindow;
@@ -40,6 +47,12 @@ public class MessageUpdateController
 
     ObservableList<String> olist = FXCollections.observableArrayList();
 
+    /**
+     * Initializator
+     * @param win Window Stage
+     * @param sd Reference to Seq. Diagram
+     * @param ap Reference to GUI AnchorPane
+     */
     public void init(Stage win, Seq_SequenceDiagram sd, AnchorPane ap)
     {
         this.aWindow = win;
@@ -51,6 +64,9 @@ public class MessageUpdateController
         this.messList.setOnAction(e -> this.activate());
     }
 
+    /**
+     * Fills the "Select Message" ComboBox with Messages present in the diagram
+     */
     private void fillOlist()
     {
         ObservableList<String> olist = FXCollections.observableArrayList();
@@ -63,6 +79,9 @@ public class MessageUpdateController
         this.params.setDisable(true);
     }
 
+    /**
+     * Fill the ComboBox with options of new Messages to replace the current Message
+     */
     @FXML void reload_cbox()
     {
         this.nMessList.setDisable(true);
@@ -82,6 +101,9 @@ public class MessageUpdateController
         this.nMessList.setDisable(false);
     }
 
+    /**
+     * When a Message has beem selected ban the Change of Selection
+     */
     private void activate()
     {
         this.messList.setDisable(true);
@@ -89,6 +111,9 @@ public class MessageUpdateController
         this.params.setDisable(false);
     }
 
+    /**
+     * Apply button onClick() - update the Text/Line/Polygon
+     */
     @FXML void updateSelected()
     {
         System.out.println("Apply");

@@ -20,6 +20,13 @@ import javafx.collections.*;
 import uml.seq.*;
 import uml.core.*;
 
+/**
+ * CLASS: NEW MESSAGE CONTROLLER
+ * 
+ * <p> Class NewMessageController handles creation and drawing of a new Message
+ *
+ * @author Juraj Mariani
+ */
 public class NewMessageController
 {
     public Stage aWindow;
@@ -44,6 +51,12 @@ public class NewMessageController
     private ObservableList<String> olist = FXCollections.observableArrayList();
     private ObservableList<Integer> olistM = FXCollections.observableArrayList();
 
+    /**
+     * Initializator
+     * @param win Window Stage
+     * @param sd Reference to Seq. Diagram
+     * @param system_id ID of System Actor`
+     */
     public void init(Stage win, Seq_SequenceDiagram sd, int system_id)
     {
         this.aWindow = win;
@@ -67,6 +80,9 @@ public class NewMessageController
         this.rec_chb.setOnAction(e -> this.fill_messagelist());
     }
 
+    /**
+     * Fill the receiver ComboBox
+     */
     private void fill_receiver()
     {
         this.send_chb.setDisable(true);
@@ -95,6 +111,9 @@ public class NewMessageController
         this.rec_chb.setItems(this.olist);
     }
 
+    /**
+     * Fills the ComboBox with available Messages(Methods from the reference class)
+     */
     private void fill_messagelist()
     {
         this.rec_chb.setDisable(true);
@@ -117,6 +136,9 @@ public class NewMessageController
         this.ack_chb.setDisable(false);
     }
 
+    /**
+     * Ban multiselection of CheckBoxes
+     */
     @FXML void swap_ack()
     {
         if (this.ack_chb.isSelected())
@@ -131,6 +153,9 @@ public class NewMessageController
         }
     }
 
+    /**
+     * Ban multiselection of CheckBoxes
+     */
     @FXML void swap_const()
     {
         if (this.const_chb.isSelected())
@@ -145,6 +170,9 @@ public class NewMessageController
         }
     }
 
+    /**
+     * Message creator
+     */
     @FXML void create_message()
     {
         if((!this.const_chb.isSelected() && !this.ack_chb.isSelected() && this.mess_cbx.getValue() == null) || this.rec_chb.getValue() == null || this.send_chb.getValue() == null)
