@@ -188,8 +188,7 @@ public class AddLinkController {
     }
 
     /**
-     * Returns list of values from modified attributes
-     * @return List 
+     * @return List of values from modified attributes
      */
     public List<String> get_vals()
     {

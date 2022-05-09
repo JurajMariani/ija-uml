@@ -17,6 +17,13 @@ import javafx.scene.text.FontWeight;
 import uml.core.Core_Attribute;
 import uml.core.Core_Method;
 
+/**
+ * CLASS: My class box
+ * 
+ * <p> Class myClassBox creates container with class information
+ *
+ * @author Denis Horil
+ */
 public class myClassBox{
     protected Label className;
     protected Label classAttr;
@@ -25,7 +32,9 @@ public class myClassBox{
     protected Separator separator1;
     protected Separator separator2;
 
-
+    /**
+     * Initialization
+     */
     public myClassBox()
     {
         this.className = new Label();
@@ -42,6 +51,9 @@ public class myClassBox{
         this.container.getChildren().addAll(this.className, this.separator1, this.classAttr, this.separator2, this.classMeth);
     }
 
+    /**
+     * Set style of single container elements
+     */
     private void boxStyle()
     {
         this.container.maxHeight(1.7976931348623157E308);
@@ -69,6 +81,9 @@ public class myClassBox{
         this.separator2.setStyle("-fx-background-color: black;");
     }
 
+    /**
+     * Style of first label in container
+     */
     private void labelName_style()
     {
         this.className.setAlignment(Pos.TOP_CENTER);
@@ -78,6 +93,9 @@ public class myClassBox{
         this.className.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
     }
 
+    /**
+     * Style of second label in container
+     */
     private void labelAttr_style()
     {
         //this.classAttr.setMaxHeight(Double.MIN_VALUE);
@@ -89,6 +107,9 @@ public class myClassBox{
         this.classAttr.setContentDisplay(ContentDisplay.CENTER);
     }
 
+    /**
+     * Style of third label in container
+     */
     private void labelMeth_style()
     {
         //this.classMeth.setMaxHeight(Double.MIN_VALUE);
@@ -100,6 +121,9 @@ public class myClassBox{
         this.classMeth.setContentDisplay(ContentDisplay.CENTER);
     }
 
+    /**
+     * Set glow to selected class
+     */
     public void selectBoxGlow()
     {
         int depth = 50;
@@ -113,6 +137,9 @@ public class myClassBox{
         this.container.setEffect(borderGlow);
     }
 
+    /**
+     * Remove glow when the class is unselected
+     */
     public void removeBoxGlow()
     {
         DropShadow borderGlow= new DropShadow();
@@ -121,6 +148,12 @@ public class myClassBox{
         this.container.setEffect(borderGlow);
     }
 
+    /**
+     * Set text of labels
+     * @param name Name of class
+     * @param attrs Class attributes
+     * @param meths Class methods
+     */
     public void setValues(String name, List<Core_Attribute> attrs, List<Core_Method> meths)
     {    
         StringBuilder attributes = new StringBuilder();
@@ -146,11 +179,17 @@ public class myClassBox{
         this.container.getChildren().set(4, this.classMeth);
     }
 
+    /**
+     * @return VBox container
+     */
     public VBox get_vbox()
     {
         return this.container;
     }
     
+    /**
+     * @return Class name
+     */
     public String get_name()
     {
         return this.className.getText();

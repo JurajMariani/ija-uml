@@ -18,6 +18,14 @@ import uml.core.Core_Class;
 import uml.core.Core_ClassDiagram;
 import uml.core.Core_Method;
 
+
+/**
+ * CLASS: Load class diagram
+ * 
+ * <p> Class load_classDia loads class diagram from file
+ *
+ * @author Denis Horil
+ */
 public class load_classDia {
 
     private Pane pane;
@@ -25,7 +33,13 @@ public class load_classDia {
     private Core_ClassDiagram cd;
     private MainSceneController cntrl;
     
-
+    /**
+     * Initialization of attributes
+     * @param pane Elements will be inserted to this pane
+     * @param file File to loaded from
+     * @param cd Class diagram in which will be stored information
+     * @param cntrl Instance of controller class
+     */
     public load_classDia(Pane pane, File file, Core_ClassDiagram cd, MainSceneController cntrl)
     {
         this.pane = pane;
@@ -34,6 +48,10 @@ public class load_classDia {
         this.cntrl = cntrl;
     }
 
+    /**
+     * Loading class diagram from given file
+     * @return Exit code
+     */
     public int load()
     {
         try{

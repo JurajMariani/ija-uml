@@ -29,17 +29,33 @@ import uml.core.Core_Link;
 import uml.core.Core_Method;
 import uml.misc.myClassBox;
 
+/**
+ * CLASS: Save class diagram
+ * 
+ * <p> Class save_classDia saves class diagram to file
+ *
+ * @author Denis Horil
+ */
 public class save_classDia {
     
     protected Core_ClassDiagram classDia;
     protected File file;
 
+    /**
+     * 
+     * @param cd Class diagram to be saved
+     * @param file File in which class diagram will be saved
+     */
     public save_classDia(Core_ClassDiagram cd, File file)
     {
         this.classDia = cd;
         this.file = file;
     }
 
+    /**
+     * Saving class diagram
+     * @return Exit code
+     */
     public int save()
     {
         try{

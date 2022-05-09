@@ -6,12 +6,27 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * CLASS: My lines
+ * 
+ * <p> Class myLines creates array of elements, that connects classes
+ *
+ * @author Denis Horil
+ */
 public class myLines {
     private double sCoordX, sCoordY;
     private double eCoordX, eCoordY;
     private String style;
     private String type;
 
+    /**
+     * Initialization
+     * @param s_x X coordinate of start object
+     * @param s_y Y coordinate of start object
+     * @param e_x X coordinate of end object
+     * @param e_y Y coordinate of end object
+     * @param style Style if line
+     */
     public myLines(double s_x, double s_y, double e_x, double e_y,  String style)
     {
         this.sCoordX = s_x;
@@ -22,6 +37,10 @@ public class myLines {
         this.type = "ass";
     }
 
+    /**
+     * Link type - association
+     * @return array of nodes
+     */
     public Node[] ass()
     {
         Line mainLine = new Line();
@@ -43,6 +62,10 @@ public class myLines {
         return arr;
     }
 
+    /**
+     * Link type - directed association
+     * @return array of nodes
+     */
     public Node[] dir()
     {
         this.type = "dir";
@@ -100,6 +123,10 @@ public class myLines {
         return arr;
     }
 
+    /**
+     * Link type - generalization
+     * @return array of nodes
+     */
     public Node[] gen()
     {
         this.type = "gen";
@@ -130,6 +157,10 @@ public class myLines {
         return arr;
     }
 
+    /**
+     * Link type - aggregation
+     * @return array of nodes
+     */
     public Node[] agg()
     {
         this.type = "agg";
@@ -161,11 +192,19 @@ public class myLines {
         return arr;
     }
 
+    /**
+     * 
+     * @return type of link
+     */
     public String get_type()
     {
         return this.type;
     }
 
+    /**
+     * 
+     * @return style of line - dotted, dashed, solid
+     */
     public String get_style()
     {
         return this.style;

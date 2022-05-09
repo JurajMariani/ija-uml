@@ -302,7 +302,11 @@ public class MainSceneController
         System.out.print(this.selectedClass.get_position()[0]+"\n");
         System.out.print(this.selectedClass.get_position()[1]+"\n");
     }
-      
+    
+    /**
+     * Link classes
+     * @param event Event handler
+     */
     @FXML
     void LinkClasses(ActionEvent event)
     {
@@ -379,6 +383,10 @@ public class MainSceneController
         catch(IOException e){}
     }
 
+    /**
+     * Load class diagram
+     * @param event Event handler
+     */
     @FXML
     void LoadDiagram(ActionEvent event)
     {
@@ -415,6 +423,10 @@ public class MainSceneController
         }
     }
 
+    /**
+     * Save class diagram
+     * @param event Event handler
+     */
     @FXML
     void SaveDiagram(ActionEvent event)
     {
@@ -440,6 +452,10 @@ public class MainSceneController
         
     }
 
+    /**
+     * Save class diagram
+     * @param event Event handler
+     */
     @FXML
     void SaveAs(ActionEvent event)
     {
@@ -452,6 +468,10 @@ public class MainSceneController
         this.saveToFile();
     }
 
+    /**
+     * Creates sequence diagram
+     * @param event Save class diagram
+     */
     @FXML
     void CreateSeqDia(ActionEvent event)
     {
@@ -475,6 +495,9 @@ public class MainSceneController
         catch(IOException e){}
     }
 
+    /**
+     * Save class diagram to file
+     */
     private void saveToFile()
     {
         if(this.file == null)
@@ -499,6 +522,9 @@ public class MainSceneController
         else System.out.print("Great Success (Save file)\n");
     }
 
+    /**
+     * Updates sequence diagram
+     */
     private void update_sequence_diagrams()
     {
         for(Seq_SequenceDiagram sequence : this.classDiagram.get_sequence_diagrams())
